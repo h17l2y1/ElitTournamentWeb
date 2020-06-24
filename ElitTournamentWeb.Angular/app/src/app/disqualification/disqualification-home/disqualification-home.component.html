@@ -1,0 +1,152 @@
+
+<mat-tab-group>
+    <mat-tab label="Жёлтые карточки">
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Elit-лига
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Текст
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list role="list">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef>№</th>
+                            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Игрок</th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="team">
+                            <th mat-header-cell *matHeaderCellDef>Команда</th>
+                            <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="goals">
+                            <th mat-header-cell *matHeaderCellDef>Карточек</th>
+                            <td mat-cell *matCellDef="let element"> {{element.goals}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-list>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        1 лига
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Текст
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list role="list">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef>№</th>
+                            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Игрок</th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="team">
+                            <th mat-header-cell *matHeaderCellDef>Команда</th>
+                            <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="goals">
+                            <th mat-header-cell *matHeaderCellDef>Голов</th>
+                            <td mat-cell *matCellDef="let element"> {{element.goals}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-list>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        2 лига
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Текст
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list role="list">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef>№</th>
+                            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Игрок</th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="team">
+                            <th mat-header-cell *matHeaderCellDef>Команда</th>
+                            <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="goals">
+                            <th mat-header-cell *matHeaderCellDef>Голов</th>
+                            <td mat-cell *matCellDef="let element"> {{element.goals}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-tab>
+    <mat-tab label="Красные карточки">
+        <mat-list role="list">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>№</th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Игрок</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="team">
+                    <th mat-header-cell *matHeaderCellDef>Команда</th>
+                    <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="goals">
+                    <th mat-header-cell *matHeaderCellDef>Голов</th>
+                    <td mat-cell *matCellDef="let element"> {{element.goals}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-list>
+    </mat-tab>
+</mat-tab-group>
+
+
+
