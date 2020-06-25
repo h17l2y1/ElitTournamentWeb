@@ -49,3 +49,17 @@ img{
 .main-img{
     padding-bottom: 2rem;
 }
+
+.document-container{
+    display: flex;
+    align-items: center;
+
+}
+
+.document-container a {
+    text-decoration: none;
+}
+
+.document-container mat-icon{
+    padding-right: 0.4rem;
+}
