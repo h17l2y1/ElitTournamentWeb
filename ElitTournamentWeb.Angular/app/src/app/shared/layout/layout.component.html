@@ -1,6 +1,5 @@
 <div class="navbar-container" [class.example-is-mobile]="mobileQuery.matches">
 
-    <!-- Top navbar -->
     <mat-toolbar class="navbar" color="primary">
 
         <button mat-icon-button (click)="snav.toggle()">
@@ -8,9 +7,7 @@
         </button>
 
         <a class="navbar-brand" [routerLink]="['/']" matTooltip="Home">
-            <h1>
-                angular-material-template222
-            </h1>
+            <h1>Элит турнир</h1>
         </a>
 
         <span class="navbar-spacer"></span>
@@ -58,7 +55,6 @@
                      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
 
             <mat-nav-list>
-                <h3 mat-subheader>Home</h3>
                 <a mat-list-item [routerLink]="['/main']" routerLinkActive="active">
                     <mat-icon mat-list-icon>
                         dashboard
@@ -95,12 +91,6 @@
                     </mat-icon>
                     <p mat-line> Нарушители </p>
                 </a>
-                <a mat-list-item [routerLink]="['/statistic']" routerLinkActive="active">
-                    <mat-icon mat-list-icon>
-                        person
-                    </mat-icon>
-                    <p mat-line> Заявочный лист111 </p>
-                </a>
                 <a mat-list-item [routerLink]="['/employe']" routerLinkActive="active">
                     <mat-icon mat-list-icon>
                         person
@@ -130,13 +120,10 @@
 
         </mat-sidenav>
 
-        <!-- Main content -->
         <mat-sidenav-content class="sidenav-content">
-
             <div class="progress-bar-container">
                 <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async">
                 </mat-progress-bar>
-                <!-- <mat-spinner class="spinner" [diameter]="50" *ngIf="showSpinner"></mat-spinner> -->
             </div>
 
             <div class="container" fxLayout="row" fxLayoutAlign="center none">
