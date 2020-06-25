@@ -1,0 +1,51 @@
+.main-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.main{
+    width: 100%;
+    height: 24rem;
+}
+
+.statement-container{
+    padding-left: 2rem;
+}
+
+.statement{
+    width: 21rem;
+    padding-bottom: 2rem;
+}
+
+.statement-header{
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to right, #ffffff, #a0a0a0, #a0a0a0, #ffffff ) 47% 0%;
+    padding-bottom: 0.8rem;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.statement-body{
+    padding-top: 0.8rem;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.statement-btn{
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.statement-text{
+    padding-right: 1rem;
+}
+
+.main-img{
+    padding-bottom: 2rem;
+}
