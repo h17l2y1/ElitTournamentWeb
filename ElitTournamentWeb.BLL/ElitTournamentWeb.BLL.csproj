@@ -5,14 +5,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Config" />
-      <Folder Include="Services\Interfaces" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ElitTournamentWeb.DAL\ElitTournamentWeb.DAL.csproj" />
       <ProjectReference Include="..\ElitTournamentWeb.Entities\ElitTournamentWeb.Entities.csproj" />
       <ProjectReference Include="..\ElitTournamentWeb.ViewModels\ElitTournamentWeb.ViewModels.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     </ItemGroup>
 
 </Project>

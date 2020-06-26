@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ElitTournamentWeb.DAL.Config;
 using ElitTournamentWeb.DAL.Repositories.Interfaces;
 using ElitTournamentWeb.Entities.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace ElitTournamentWeb.DAL.Repositories
 {

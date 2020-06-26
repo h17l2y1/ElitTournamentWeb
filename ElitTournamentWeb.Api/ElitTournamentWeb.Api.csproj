@@ -11,10 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ElitTournamentWeb.BLL\ElitTournamentWeb.BLL.csproj" />
       <ProjectReference Include="..\ElitTournamentWeb.ViewModels\ElitTournamentWeb.ViewModels.csproj" />
     </ItemGroup>

@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using ElitTournamentWeb.DAL.Config;
 using ElitTournamentWeb.DAL.Repositories.Interfaces;
 using ElitTournamentWeb.Entities.Entities;
@@ -14,15 +14,13 @@ namespace ElitTournamentWeb.DAL.Repositories
 		{
 		}
 
-
-		public async Task<IEnumerable<League>> GetAll(int version)
+		public async override Task<IEnumerable<League>> GetAll()
 		{
-			throw new System.NotImplementedException();
-		}
-
-		public async Task<string> GetTableLink(string teamName, int version)
-		{
-			throw new System.NotImplementedException();
+			IEnumerable<League> result = await _dbSet.Include(x => x.Teams)
+													 .ThenInclude(x => x.Players)
+													 .AsNoTracking()
+													 .ToListAsync();
+			return result;
 		}
 	}
 }

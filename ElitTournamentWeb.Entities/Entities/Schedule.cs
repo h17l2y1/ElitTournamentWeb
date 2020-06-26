@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
@@ -6,6 +7,8 @@ namespace ElitTournamentWeb.Entities.Entities
 	{
 		public string Place { get; set; }
 
-		public IEnumerable Games { get; set; }
+		public DateTime Date { get; set; }
+		
+		public IEnumerable<Game> Games { get; set; }
 	}
 }
