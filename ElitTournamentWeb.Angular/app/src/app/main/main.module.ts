@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MainHomeComponent } from './main-home/main-home.component';
 import {SharedModule} from '../shared/shared.module';
 import { MainRoutingModule } from './main-routing.module';
-import {MatGridListModule} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 
 @NgModule({
   declarations: [MainHomeComponent],
@@ -11,7 +11,7 @@ import {MatGridListModule} from '@angular/material';
         CommonModule,
         SharedModule,
         MainRoutingModule,
-        MatGridListModule
+        MatInputModule
     ]
 })
 export class MainModule { }

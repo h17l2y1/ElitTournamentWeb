@@ -17,6 +17,8 @@
 
 .statement-container{
     padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .statement{
@@ -77,7 +79,7 @@ img{
 }
 
 .scheme{
-    padding-bottom: 2rem;
+    padding: 1rem 1rem 2rem 1rem;
     margin-top: 2rem;
     border-bottom: 1px solid;
     border-image: linear-gradient(to right, #ffffff, #a0a0a0, #a0a0a0, #ffffff ) 47% 0%;
@@ -97,3 +99,31 @@ img{
     line-height: 137%;
 }
 
+.post-container{
+    padding: 1rem;
+}
+
+.punishment{
+    padding: 1rem 0 1rem 0;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.button-container{
+    display: flex;
+    width: 90px;
+    justify-content: space-between;
+}
+
+.edit-form-container{
+    display: flex;
+    justify-content: center;
+}

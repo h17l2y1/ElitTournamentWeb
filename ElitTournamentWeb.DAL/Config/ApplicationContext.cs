@@ -21,5 +21,7 @@ namespace ElitTournamentWeb.DAL.Config
 		
 		public DbSet<Player> Players { get; set; }
 		
+		public DbSet<Post> Posts { get; set; }
+		
 	}
 }

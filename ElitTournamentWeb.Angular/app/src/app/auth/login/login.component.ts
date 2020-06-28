@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('Элит Турнир - Login');
-        this.authenticationService.logout();
+        // this.authenticationService.logout();
         this.createForm();
     }
 

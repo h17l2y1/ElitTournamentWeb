@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels.League;
+using ElitTournamentWeb.ViewModels.PostView;
 
 namespace ElitTournamentWeb.BLL.Config
 {
@@ -18,6 +19,8 @@ namespace ElitTournamentWeb.BLL.Config
 			CreateMap<League, LeagueItem>();
 			CreateMap<Team, TeamItem>();
 			CreateMap<Player, PlayerItem>();
+			
+			CreateMap<Post, PostItem>();
 		}
 	}
 }
