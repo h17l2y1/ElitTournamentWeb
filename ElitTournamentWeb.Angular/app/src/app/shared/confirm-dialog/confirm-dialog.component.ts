@@ -29,7 +29,7 @@ export class ConfirmDialogComponent implements OnInit {
 }
 
 /**
- * Class to represent confirm dialog model.
+ * Class to represent confirm dialog models.
  *
  * It has been kept here to keep it as part of shared component.
  */

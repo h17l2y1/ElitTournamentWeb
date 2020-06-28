@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElitTournamentWeb.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200625174544_init")]
+    [Migration("20200627150733_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,6 +130,27 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.HasIndex("LeagueId");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("Password");
+
+                    b.Property<bool>("isAdmin");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Game", b =>

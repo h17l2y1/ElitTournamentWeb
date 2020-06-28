@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ElitTournamentWeb.BLL.Helpers;
+using ElitTournamentWeb.BLL.Helpers.Interfaces;
 using ElitTournamentWeb.BLL.Services;
 using ElitTournamentWeb.BLL.Services.Interfaces;
 using ElitTournamentWeb.DAL.Config;
@@ -29,6 +31,8 @@ namespace ElitTournamentWeb.BLL.Config
 
 		private static void AddDependency(IServiceCollection services)
 		{
+			services.AddScoped<IJwtHelper, JwtHelper>();
+			services.AddScoped<IAccountService, AccountService>();
 			services.AddScoped<ILeagueService, LeagueService>();
 		}
 	}

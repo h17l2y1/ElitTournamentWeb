@@ -13,7 +13,6 @@ export class AdminGuard implements CanActivate {
 
         if (user && user.isAdmin) {
             return true;
-
         } else {
             this.router.navigate(['/']);
             return false;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LeagueService } from 'src/app/core/services/league.service';
-import {GetAllLeaguesResponse, LeagueItem} from '../../core/model/leagues-view.ts';
+import {GetAllLeaguesResponse, LeagueItem} from '../../core/models/leagues-view.ts';
 
 export interface Statistic {
   stat: string;

@@ -7,8 +7,9 @@ namespace ElitTournamentWeb.DAL.Config
 	{
 		public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
 		{
-			Database.EnsureCreated();
 		}
+		
+		public DbSet<User> Users { get; set; }
 		
 		public DbSet<Schedule> Schedules { get; set; }
 

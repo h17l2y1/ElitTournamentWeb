@@ -130,6 +130,27 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("Password");
+
+                    b.Property<bool>("isAdmin");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Game", b =>
                 {
                     b.HasOne("ElitTournamentWeb.Entities.Entities.Schedule")

@@ -10,52 +10,42 @@ const appRoutes: Routes = [
     {
         path: 'main',
         loadChildren: './main/main.module#MainModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
     {
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule',
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'schedule',
         loadChildren: './schedule/schedule.module#ScheduleModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
     {
         path: 'result',
         loadChildren: './result/result.module#ResultModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
     {
         path: 'statistic',
         loadChildren: './statistic/statistic.module#StatisticModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
     {
         path: 'disqualification',
         loadChildren: './disqualification/disqualification.module#DisqualificationModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
-    // {
-    //     path: 'employe',
-    //     loadChildren: './employe/employe.module#EmployeModule',
-    //     canActivate: [AuthGuard]
-    // },
     {
         path: 'employe',
         loadChildren: './employe/employe.module#EmployeModule',
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'account',
-        loadChildren: './account/account.module#AccountModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
     {
         path: 'about',
         loadChildren: './about/about.module#AboutModule',
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
     },
     {
         path: '**',
