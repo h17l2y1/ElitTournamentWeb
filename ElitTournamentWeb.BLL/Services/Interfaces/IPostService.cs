@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
-using ElitTournamentWeb.ViewModels.PostView;
+using ElitTournamentWeb.ViewModels.Post;
 
 namespace ElitTournamentWeb.BLL.Services.Interfaces
 {
 	public interface IPostService
 	{
 		Task<PostView> GetAllPosts();
+		
+		Task Update(UpdatePostRequest request);
 	}
 	
 }

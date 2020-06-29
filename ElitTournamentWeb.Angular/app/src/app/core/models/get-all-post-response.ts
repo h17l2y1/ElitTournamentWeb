@@ -3,6 +3,7 @@ export class GetAllPostResponse {
 }
 
 export class GetAllPostItemResponse {
+    public id: number;
     public type: number;
     public title: string;
     public description: string;

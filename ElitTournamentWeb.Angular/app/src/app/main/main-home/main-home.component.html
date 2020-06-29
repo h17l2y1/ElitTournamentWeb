@@ -17,43 +17,44 @@
             <mat-tab-group>
                 <mat-tab label="Cхема розыгрыша">
                     <div class="scheme-container">
-                        <div class="scheme" *ngFor="let post of postsTypeOne">
+                        <form [formGroup]="postForm">
+                            <div formArrayName="formControlArray">
+                                <div class="scheme"
+                                     *ngFor="let post of postsTypeZero; let i = index">
+                                    <div *ngIf="user" class="button-container">
+                                        <div class="example-button-container">
+                                            <button mat-mini-fab color="primary" (click)="editPost(post)" *ngIf="!post.editMode">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                            <button mat-mini-fab color="primary" (click)="savePost(i, post)" *ngIf="post.editMode">
+                                                <mat-icon>save</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="example-button-container" *ngIf="user">
+                                            <button mat-mini-fab color="primary" (click)="clearPost(post)" *ngIf="post.editMode">
+                                                <mat-icon>clear</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
 
-                            <div *ngIf="user" class="button-container">
-                                <div class="example-button-container">
-                                    <button mat-mini-fab color="primary" (click)="editPost(post)" *ngIf="!post.editMode">
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                    <button mat-mini-fab color="primary" (click)="savePost(post)" *ngIf="post.editMode">
-                                        <mat-icon>save</mat-icon>
-                                    </button>
-                                </div>
-                                <div class="example-button-container" *ngIf="user">
-                                    <button mat-mini-fab color="primary" (click)="clearPost(post)" *ngIf="post.editMode">
-                                        <mat-icon>clear</mat-icon>
-                                    </button>
+                                    <div *ngIf="!post.editMode">
+                                        <div class="scheme-title">{{post.title}}</div>
+                                        <div class="scheme-text">{{post.text}}</div>
+                                    </div>
+
+                                    <div class="edit-form-container" *ngIf="post.editMode">
+                                        <div [formGroupName]="i">
+                                            <input placeholder="Название" formControlName="title">
+                                            <textarea class="scheme-text" formControlName="text" rows="6" cols="20"></textarea>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div *ngIf="!post.editMode" class="scheme-title">{{post.title}}</div>
-                            <div *ngIf="!post.editMode" class="scheme-text">{{post.text}}</div>
-
-                            <div *ngIf="post.editMode" class="edit-form-container">
-                                <form class="example-form">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>Название</mat-label>
-                                        <input matInput placeholder="Название" [value]="post.title">
-                                    </mat-form-field>
-
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>Текст</mat-label>
-                                        <textarea class="scheme-text" matInput placeholder="Текст" [value]="post.text" rows="4"></textarea>
-                                    </mat-form-field>
-
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
+
+
                 </mat-tab>
                 <mat-tab label="Дисциплинарные наказания">
                     <mat-list role="list" class="post-container">

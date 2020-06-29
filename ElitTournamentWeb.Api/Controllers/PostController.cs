@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ElitTournamentWeb.BLL.Services.Interfaces;
-using ElitTournamentWeb.ViewModels.PostView;
+using ElitTournamentWeb.ViewModels.Post;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElitTournamentWeb.Api.Controllers
@@ -21,6 +21,13 @@ namespace ElitTournamentWeb.Api.Controllers
 		{
 			PostView view = await _service.GetAllPosts();
 			return Ok(view);
+		}
+		
+		[HttpPost]
+		public async Task<IActionResult> Update([FromBody] UpdatePostRequest request)
+		{
+			await _service.Update(request);
+			return Ok();
 		}
 
 	}

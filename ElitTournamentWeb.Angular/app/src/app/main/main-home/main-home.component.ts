@@ -2,14 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from 'src/app/core/services/auth.service';
 import {PostService} from '../../core/services/post.service';
 import {TokenData} from 'src/app/core/models/token-data';
-import {GetAllPostItemResponse} from '../../core/models/get-all-post-response';
-
-export interface Tile {
-    color: string;
-    cols: number;
-    rows: number;
-    text: string;
-}
+import {GetAllPostItemResponse, GetAllPostResponse} from '../../core/models/get-all-post-response';
+import {FormArray, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {forEach} from '@angular-devkit/schematics';
 
 @Component({
     selector: 'app-main-home',
@@ -18,10 +13,13 @@ export interface Tile {
 })
 export class MainHomeComponent implements OnInit {
 
-    constructor(private authService: AuthenticationService, private postService: PostService) {
+    postForm: FormGroup;
+
+    constructor(private authService: AuthenticationService, private postService: PostService, private formBuilder: FormBuilder) {
     }
 
     public user: TokenData;
+    public response: GetAllPostResponse;
     public postsTypeZero: Array<GetAllPostItemResponse>;
     public postsTypeOne: Array<GetAllPostItemResponse>;
     public postsTypeTwo: Array<GetAllPostItemResponse>;
@@ -29,17 +27,41 @@ export class MainHomeComponent implements OnInit {
     public postsTypeFour: Array<GetAllPostItemResponse>;
 
     ngOnInit() {
+        this.initForm();
         this.user = this.authService.getCurrentUser();
         this.getAllPosts();
+
     }
 
     public getAllPosts(): void {
         this.postService.getAll().subscribe(response => {
+            this.response = response;
             this.postsTypeZero = response.posts.filter(post => post.type === 0);
             this.postsTypeOne = response.posts.filter(post => post.type === 1);
             this.postsTypeTwo = response.posts.filter(post => post.type === 2);
             this.postsTypeThree = response.posts.filter(post => post.type === 3);
             this.postsTypeFour = response.posts.filter(post => post.type === 4);
+
+            this.addPostForm();
+        });
+    }
+    trackByFn(index: any, item: any) {
+        return index;
+    }
+    initForm(){
+        this.postForm = this.formBuilder.group({
+            formControlArray: this.formBuilder.array([]),
+        });
+    }
+
+    addPostForm(){
+        const creds = this.postForm.controls.formControlArray as FormArray;
+
+        this.response.posts.forEach(post => {
+            creds.push(this.formBuilder.group({
+                title: new FormControl(post.title),
+                text: new FormControl(post.text)
+            }));
         });
     }
 
@@ -47,11 +69,16 @@ export class MainHomeComponent implements OnInit {
         post.editMode = true;
     }
 
-    public savePost(post: GetAllPostItemResponse){
+    public savePost(index: number, post: GetAllPostItemResponse){
         post.editMode = false;
-        // this.postService.update().subscribe(response => {
-        //
-        // });
+        var formControlArray = this.postForm.controls.formControlArray as FormArray;
+
+        post.title = formControlArray.controls[index].value.title;
+        post.text = formControlArray.controls[index].value.text;
+
+        this.postService.update(post).subscribe(response => {
+
+        });
     }
 
     public clearPost(post: GetAllPostItemResponse){

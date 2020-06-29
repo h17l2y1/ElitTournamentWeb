@@ -4,7 +4,7 @@ using AutoMapper;
 using ElitTournamentWeb.BLL.Services.Interfaces;
 using ElitTournamentWeb.DAL.Repositories.Interfaces;
 using ElitTournamentWeb.Entities.Entities;
-using ElitTournamentWeb.ViewModels.PostView;
+using ElitTournamentWeb.ViewModels.Post;
 
 namespace ElitTournamentWeb.BLL.Services
 {
@@ -25,6 +25,12 @@ namespace ElitTournamentWeb.BLL.Services
 			IEnumerable<PostItem> postItems = _mapper.Map<IEnumerable<PostItem>>(posts);
 			PostView view = new PostView(postItems);
 			return view;
+		}
+
+		public async Task Update(UpdatePostRequest request)
+		{
+			Post post = _mapper.Map<Post>(request);
+			await _postRepository.Update(post);
 		}
 	}
 }
