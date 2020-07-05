@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../shared/layout/layout.component';
-import { EmployeHomeComponent } from './employe-home/employe-home.component';
+import { CreateNewSeasonHomeComponent } from './create-new-season-home/create-new-season-home.component';
 
 const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', component: EmployeHomeComponent },
+            { path: '', component: CreateNewSeasonHomeComponent },
         ]
     }
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class EmployeRoutingModule { }
+export class CreateNewSeasonRoutingModule { }

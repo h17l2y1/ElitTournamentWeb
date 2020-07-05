@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LeagueService } from 'src/app/core/services/league.service';
-import {GetAllLeaguesResponse, LeagueItem} from '../../core/models/leagues-view.ts';
+import {AuthenticationService} from '../../core/services/auth.service';
+import {LeagueItem} from '../../core/models/league/league-item';
+import { GetAllLeaguesResponse } from 'src/app/core/models/league/get-all-leagues-response';
 
 export interface Statistic {
   stat: string;
@@ -25,7 +27,7 @@ export class DashboardHomeComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'played', 'won', 'drawn', 'lost', 'goals', 'goalDifference', 'points' /*, 'statistics'*/];
 
-  constructor(private leagueService: LeagueService) {
+  constructor(private authService: AuthenticationService, private leagueService: LeagueService) {
   }
 
   ngOnInit() {

@@ -43,6 +43,11 @@ const appRoutes: Routes = [
         //canActivate: [AuthGuard]
     },
     {
+        path: 'new-season',
+        loadChildren: './create-new-season/create-new-season.module#CreateNewSeasonModule',
+        //canActivate: [AuthGuard]
+    },
+    {
         path: 'about',
         loadChildren: './about/about.module#AboutModule',
         //canActivate: [AuthGuard]

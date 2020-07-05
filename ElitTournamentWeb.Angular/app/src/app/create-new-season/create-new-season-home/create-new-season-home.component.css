@@ -1,0 +1,15 @@
+.addButton{
+    /*padding-top: 1rem;*/
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.add-league-container{
+    display: flex;
+    align-items: center;
+}
+
+.league-title{
+    margin-right: 1rem;
+}

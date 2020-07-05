@@ -17,4 +17,16 @@ export class LeagueService {
   public getAll(): Observable<GetAllLeaguesResponse> {
     return this.http.get<GetAllLeaguesResponse>(this.rootUrl + 'League/GetAll');
   }
+
+  public create(data: any): Observable<any> {
+    return this.http.post<any>(this.rootUrl + 'League/Create', data);
+  }
+
+  public update(data: any): Observable<any> {
+    return this.http.post<any>(this.rootUrl + 'League/Update', data);
+  }
+
+  public remove(data: any): Observable<any> {
+    return this.http.post<any>(this.rootUrl + 'League/Remove', data);
+  }
 }

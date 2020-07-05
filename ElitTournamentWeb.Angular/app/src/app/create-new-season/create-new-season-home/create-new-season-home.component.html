@@ -1,0 +1,39 @@
+<mat-card>
+    Новый Сезон
+</mat-card><br>
+
+<mat-card>
+    <div class="addButton">
+        <button *ngIf="!onCreate" mat-mini-fab color="primary" (click)="onCreate = !onCreate">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="onCreate" mat-mini-fab color="primary">
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+    <br>
+
+    <div *ngIf="onCreate">
+        <form [formGroup]="seasonForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Название нового сезона</mat-label>
+                <input formControlName="seasonName" matInput placeholder="Напишите название нового сезона">
+            </mat-form-field>
+
+            <div class="add-league-container">
+                <div class="league-title">
+                    Добавить новую лигу
+                </div>
+                <button mat-mini-fab color="primary" (click)="onAddNewLeague()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+
+<!--            <div formArrayName="leagues">-->
+<!--            </div>-->
+        </form>
+    </div>
+
+
+</mat-card>

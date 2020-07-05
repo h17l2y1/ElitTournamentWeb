@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels.League;
+using ElitTournamentWeb.ViewModels.Player;
 using ElitTournamentWeb.ViewModels.Post;
+using ElitTournamentWeb.ViewModels.Team;
 
 namespace ElitTournamentWeb.BLL.Config
 {
@@ -9,8 +11,6 @@ namespace ElitTournamentWeb.BLL.Config
 	{
 		public MapperProfile()
 		{
-
-			// CreateMap<Rol, GetAllRolViewItem>();
 			
 			// CreateMap<SignUpAccountView, User>()
 			// 	.ForMember(from => from.UserName, to => to.MapFrom(source => source.Login))
