@@ -22,6 +22,7 @@ namespace ElitTournamentWeb.BLL.Config
 			
 			CreateMap<Post, PostItem>();
 			CreateMap<UpdatePostRequest, Post>();
+			CreateMap<UpdateManyPostItemRequest, Post>();
 		}
 	}
 }

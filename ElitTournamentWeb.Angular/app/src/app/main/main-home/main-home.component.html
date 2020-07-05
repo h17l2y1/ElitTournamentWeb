@@ -11,67 +11,142 @@
             </div>
             Адрес: г. Харьков, Сокольники, 3-А; "Академия Бенфики"<br>
             ютуб + сити кап
+
+            <div *ngIf="user" class="addButton">
+                <button *ngIf="!editMode" mat-mini-fab color="primary" (click)="editMode = !editMode">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button *ngIf="editMode" mat-mini-fab color="primary" (click)="saveAll()">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </div>
         </mat-card>
 
         <mat-card>
             <mat-tab-group>
                 <mat-tab label="Cхема розыгрыша">
                     <div class="scheme-container">
-                        <form [formGroup]="postForm">
-                            <div formArrayName="formControlArray">
-                                <div class="scheme"
-                                     *ngFor="let post of postsTypeZero; let i = index">
-                                    <div *ngIf="user" class="button-container">
-                                        <div class="example-button-container">
-                                            <button mat-mini-fab color="primary" (click)="editPost(post)" *ngIf="!post.editMode">
-                                                <mat-icon>edit</mat-icon>
-                                            </button>
-                                            <button mat-mini-fab color="primary" (click)="savePost(i, post)" *ngIf="post.editMode">
-                                                <mat-icon>save</mat-icon>
-                                            </button>
-                                        </div>
-                                        <div class="example-button-container" *ngIf="user">
-                                            <button mat-mini-fab color="primary" (click)="clearPost(post)" *ngIf="post.editMode">
-                                                <mat-icon>clear</mat-icon>
-                                            </button>
-                                        </div>
-                                    </div>
+                        <div *ngIf="user" class="addButton">
+                            <button *ngIf="editMode" mat-mini-fab color="primary" (click)="addPost(1)">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                        <form [formGroup]="postsForm">
+                            <div formArrayName="posts">
+                                <div *ngFor="let postControl of getControls(); let i=index">
+                                    <div *ngIf="postControl.value.type === 1">
+                                        <div class="scheme">
+                                            <div *ngIf="!editMode">
+                                                <div class="scheme-title">{{postControl.value.title}}</div>
+                                                <div class="scheme-text">{{postControl.value.text}}</div>
+                                            </div>
 
-                                    <div *ngIf="!post.editMode">
-                                        <div class="scheme-title">{{post.title}}</div>
-                                        <div class="scheme-text">{{post.text}}</div>
-                                    </div>
-
-                                    <div class="edit-form-container" *ngIf="post.editMode">
-                                        <div [formGroupName]="i">
-                                            <input placeholder="Название" formControlName="title">
-                                            <textarea class="scheme-text" formControlName="text" rows="6" cols="20"></textarea>
+                                            <div [formGroupName]="i" *ngIf="editMode" class="edit">
+                                                <input placeholder="Название" formControlName="title">
+                                                <textarea placeholder="Текст" class="scheme-text" formControlName="text"
+                                                          rows="6" cols="60"></textarea>
+                                                <div class="addButton">
+                                                    <button mat-mini-fab color="primary" (click)="removePost(i)">
+                                                        <mat-icon>remove</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </form>
                     </div>
-
-
                 </mat-tab>
                 <mat-tab label="Дисциплинарные наказания">
-                    <mat-list role="list" class="post-container">
-                        <div role="listitem" *ngFor="let post of postsTypeTwo" class="punishment">
-                            {{post.text}}
+                    <div *ngIf="editMode" class="addButton">
+                        <button mat-mini-fab color="primary" (click)="addPost(2)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+
+                    <form [formGroup]="postsForm">
+                        <div formArrayName="posts">
+                            <div *ngFor="let postControl of getControls(); let i=index">
+                                <div *ngIf="postControl.value.type === 2">
+                                    <div class="scheme">
+                                        <div *ngIf="!editMode">
+                                            <div class="scheme-text">{{postControl.value.text}}</div>
+                                        </div>
+
+                                        <div [formGroupName]="i" *ngIf="editMode" class="edit">
+                                            <input placeholder="Название" formControlName="text">
+                                            <div class="addButton">
+                                                <button mat-mini-fab color="primary" (click)="removePost(i)">
+                                                    <mat-icon>remove</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </mat-list>
+                    </form>
                 </mat-tab>
                 <mat-tab label="КДК по игрокам">
-                    <mat-list role="list" *ngFor="let post of postsTypeThree" class="post-container">
-                        <div role="listitem" class="punishment">{{post.text}}</div>
-                    </mat-list>
+                    <div *ngIf="editMode" class="addButton">
+                        <button mat-mini-fab color="primary" (click)="addPost(3)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+
+                    <form [formGroup]="postsForm">
+                        <div formArrayName="posts">
+                            <div *ngFor="let postControl of getControls(); let i=index">
+                                <div *ngIf="postControl.value.type === 3">
+                                    <div class="scheme">
+                                        <div *ngIf="!editMode">
+                                            <div class="scheme-text">{{postControl.value.text}}</div>
+                                        </div>
+
+                                        <div [formGroupName]="i" *ngIf="editMode" class="edit">
+                                            <input placeholder="Название" formControlName="text">
+                                            <div class="addButton">
+                                                <button mat-mini-fab color="primary" (click)="removePost(i)">
+                                                    <mat-icon>remove</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </mat-tab>
                 <mat-tab label="КДК по судьям">
-                    <mat-list role="list" *ngFor="let post of postsTypeFour" class="post-container">
-                        <div role="listitem" class="punishment">{{post.text}}</div>
-                    </mat-list>
+                    <div *ngIf="editMode" class="addButton">
+                        <button mat-mini-fab color="primary" (click)="addPost(4)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+
+                    <form [formGroup]="postsForm">
+                        <div formArrayName="posts">
+                            <div *ngFor="let postControl of getControls(); let i=index">
+                                <div *ngIf="postControl.value.type === 4">
+                                    <div class="scheme">
+                                        <div *ngIf="!editMode">
+                                            <div class="scheme-text">{{postControl.value.text}}</div>
+                                        </div>
+
+                                        <div [formGroupName]="i" *ngIf="editMode" class="edit">
+                                            <input placeholder="Название" formControlName="text">
+                                            <div class="addButton">
+                                                <button mat-mini-fab color="primary" (click)="removePost(i)">
+                                                    <mat-icon>remove</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </mat-tab>
             </mat-tab-group>
         </mat-card>
@@ -97,24 +172,48 @@
                 </div>
             </mat-card>
         </div>
-
-        <div *ngFor="let post of postsTypeZero">
-            <div class="statement">
-                <mat-card>
-                    <div class="statement-header">
-                        {{post.title}}
-                    </div>
-                    <div class="statement-body">
-                        <div *ngIf="post.image != null">
-                            <img src="{{post.image}}" alt="">
-                        </div>
-                        {{post.text}}
-                    </div>
-                </mat-card>
-            </div>
+        <div *ngIf="user" class="right-add-button">
+            <button *ngIf="editMode" mat-mini-fab color="primary" (click)="addPost(5)">
+                <mat-icon>add</mat-icon>
+            </button>
         </div>
+        <form [formGroup]="postsForm">
+            <div formArrayName="posts">
+                <div *ngFor="let postControl of getControls(); let i=index">
+                    <div *ngIf="postControl.value.type === 5">
+                        <div class="statement">
+                            <mat-card>
+                                <div *ngIf="!editMode">
+                                    <div class="statement-header">
+                                        {{postControl.value.title}}
+                                    </div>
+                                    <div class="statement-body">
+                                        <div *ngIf="postControl.value.image != null">
+                                            <img src="{{postControl.value.image}}" alt="">
+                                        </div>
+                                        {{postControl.value.text}}
+                                    </div>
+                                </div>
 
+                                <div class="edit" *ngIf="editMode">
+                                    <div [formGroupName]="i">
+                                        <input placeholder="Название" formControlName="title">
+                                        <textarea class="scheme-text" formControlName="text" rows="6"
+                                                  cols="20"></textarea>
+                                    </div>
+                                    <div class="addButton">
+                                        <button mat-mini-fab color="primary" (click)="removePost(i)">
+                                            <mat-icon>remove</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+        </form>
     </div>
 
 </div>

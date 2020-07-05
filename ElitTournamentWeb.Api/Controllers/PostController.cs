@@ -24,11 +24,10 @@ namespace ElitTournamentWeb.Api.Controllers
 		}
 		
 		[HttpPost]
-		public async Task<IActionResult> Update([FromBody] UpdatePostRequest request)
+		public async Task<IActionResult> UpdateMany([FromBody] UpdateManyPostRequest request)
 		{
 			await _service.Update(request);
 			return Ok();
 		}
-
 	}
 }

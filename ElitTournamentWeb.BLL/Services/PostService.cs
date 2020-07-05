@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ElitTournamentWeb.BLL.Services.Interfaces;
@@ -26,11 +27,15 @@ namespace ElitTournamentWeb.BLL.Services
 			PostView view = new PostView(postItems);
 			return view;
 		}
-
-		public async Task Update(UpdatePostRequest request)
+		
+		public async Task Update(UpdateManyPostRequest request)
 		{
-			Post post = _mapper.Map<Post>(request);
-			await _postRepository.Update(post);
+			IEnumerable<Post> updatePosts = _mapper.Map<IEnumerable<Post>>(request.Posts);
+			IEnumerable<Post> removePosts = _mapper.Map<IEnumerable<Post>>(request.RemovedPosts);
+
+			await _postRepository.CreateAsync(updatePosts.Where(x=>x.Id == 0));
+			await _postRepository.Update(updatePosts.Where(x=>x.Id != 0));
+			await _postRepository.RemoveAsync(removePosts);
 		}
 	}
 }

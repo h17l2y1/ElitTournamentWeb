@@ -14,9 +14,12 @@ namespace ElitTournamentWeb.DAL.Repositories.Interfaces
         Task<IEnumerable<TEntity>> GetAll();
 
         Task Update(TEntity entity);
+        
+        Task Update(IEnumerable<TEntity> entity);
 
         Task RemoveByIdAsync(int id);
 
         Task RemoveAsync(TEntity entity);
+        Task RemoveAsync(IEnumerable<TEntity> entities);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ElitTournamentWeb.DAL.Config;
+﻿using System.Collections;
+using ElitTournamentWeb.DAL.Config;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +56,21 @@ namespace ElitTournamentWeb.DAL.Repositories
 			await _context.SaveChangesAsync();
 		}
 
+		public virtual async Task RemoveAsync(IEnumerable<TEntity> entities)
+		{
+			_dbSet.RemoveRange(entities);
+			await _context.SaveChangesAsync();
+		}
+		
 		public virtual async Task Update(TEntity entity)
 		{
 			_dbSet.Update(entity);
+			await _context.SaveChangesAsync();
+		}
+		
+		public virtual async Task Update(IEnumerable<TEntity> entities)
+		{
+			_dbSet.UpdateRange(entities);
 			await _context.SaveChangesAsync();
 		}
 

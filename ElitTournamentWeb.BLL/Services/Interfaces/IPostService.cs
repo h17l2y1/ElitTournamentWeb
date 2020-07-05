@@ -7,7 +7,7 @@ namespace ElitTournamentWeb.BLL.Services.Interfaces
 	{
 		Task<PostView> GetAllPosts();
 		
-		Task Update(UpdatePostRequest request);
+		Task Update(UpdateManyPostRequest request);
 	}
 	
 }

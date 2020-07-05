@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from 'src/app/core/services/auth.service';
 import {PostService} from '../../core/services/post.service';
 import {TokenData} from 'src/app/core/models/token-data';
-import {GetAllPostItemResponse, GetAllPostResponse} from '../../core/models/get-all-post-response';
-import {FormArray, FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import {forEach} from '@angular-devkit/schematics';
+import {GetAllPostResponse} from '../../core/models/post/get-all-post-response';
+import {FormArray, FormBuilder, FormGroup, AbstractControl} from '@angular/forms';
+import {UpdateManyPostRequest, UpdateManyPostItem} from 'src/app/core/models/post/update-many-post-request';
 
 @Component({
     selector: 'app-main-home',
@@ -13,76 +13,94 @@ import {forEach} from '@angular-devkit/schematics';
 })
 export class MainHomeComponent implements OnInit {
 
-    postForm: FormGroup;
+    public postsForm: FormGroup;
+    public editMode: boolean;
+    public user: TokenData;
+    public response: GetAllPostResponse;
+    public removed: Array<UpdateManyPostItem>;
 
     constructor(private authService: AuthenticationService, private postService: PostService, private formBuilder: FormBuilder) {
     }
 
-    public user: TokenData;
-    public response: GetAllPostResponse;
-    public postsTypeZero: Array<GetAllPostItemResponse>;
-    public postsTypeOne: Array<GetAllPostItemResponse>;
-    public postsTypeTwo: Array<GetAllPostItemResponse>;
-    public postsTypeThree: Array<GetAllPostItemResponse>;
-    public postsTypeFour: Array<GetAllPostItemResponse>;
-
     ngOnInit() {
         this.initForm();
-        this.user = this.authService.getCurrentUser();
         this.getAllPosts();
+        this.user = this.authService.getCurrentUser();
 
+        this.removed = new Array<UpdateManyPostItem>();
+    }
+
+    initForm() {
+        this.postsForm = this.formBuilder.group({
+            posts: this.formBuilder.array([]),
+        });
     }
 
     public getAllPosts(): void {
         this.postService.getAll().subscribe(response => {
             this.response = response;
-            this.postsTypeZero = response.posts.filter(post => post.type === 0);
-            this.postsTypeOne = response.posts.filter(post => post.type === 1);
-            this.postsTypeTwo = response.posts.filter(post => post.type === 2);
-            this.postsTypeThree = response.posts.filter(post => post.type === 3);
-            this.postsTypeFour = response.posts.filter(post => post.type === 4);
-
-            this.addPostForm();
-        });
-    }
-    trackByFn(index: any, item: any) {
-        return index;
-    }
-    initForm(){
-        this.postForm = this.formBuilder.group({
-            formControlArray: this.formBuilder.array([]),
+            this.addPostsToFormArray();
         });
     }
 
-    addPostForm(){
-        const creds = this.postForm.controls.formControlArray as FormArray;
-
+    public addPostsToFormArray() {
         this.response.posts.forEach(post => {
-            creds.push(this.formBuilder.group({
-                title: new FormControl(post.title),
-                text: new FormControl(post.text)
-            }));
+            this.posts.push(
+                this.formBuilder.group({
+                    id: post.id,
+                    type: post.type,
+                    title: post.title,
+                    text: post.text,
+                    editMode: false,
+                    removed: false
+                })
+            );
         });
     }
 
-    public editPost(post: GetAllPostItemResponse){
-        post.editMode = true;
+    get posts(): FormArray {
+        return this.postsForm.get('posts') as FormArray;
     }
 
-    public savePost(index: number, post: GetAllPostItemResponse){
-        post.editMode = false;
-        var formControlArray = this.postForm.controls.formControlArray as FormArray;
-
-        post.title = formControlArray.controls[index].value.title;
-        post.text = formControlArray.controls[index].value.text;
-
-        this.postService.update(post).subscribe(response => {
-
-        });
+    getControls(): Array<AbstractControl> {
+        const form = this.postsForm.get('posts') as FormArray;
+        return form.controls;
     }
 
-    public clearPost(post: GetAllPostItemResponse){
-        post.editMode = false;
+    addPost(type: number) {
+        this.posts.push(
+            this.formBuilder.group({
+                id: 0,
+                type: type,
+                title: '',
+                text: '',
+                editMode: false,
+                removed: false,
+            })
+        );
     }
 
+    public removePost(i: number) {
+        const removedPost = this.posts.value[i] as UpdateManyPostItem;
+        this.removed.push(removedPost)
+        this.posts.removeAt(i);
+    }
+
+    public saveAll() {
+        this.editMode = !this.editMode;
+        const editedControls = this.posts.controls.filter(x => x.dirty) as Array<AbstractControl>;
+
+        const updatedPosts = editedControls.map(control => ({
+            id: control.value.id,
+            type: control.value.type,
+            title: control.value.title,
+            text: control.value.text,
+            description: control.value.description,
+            image: control.value.image
+        } as UpdateManyPostItem));
+
+        const request = new UpdateManyPostRequest(updatedPosts, this.removed);
+
+        this.postService.updateMany(request).subscribe();
+    }
 }

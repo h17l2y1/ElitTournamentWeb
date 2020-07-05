@@ -16,7 +16,7 @@ namespace ElitTournamentWeb.DAL.Repositories
 
 		public async override Task<IEnumerable<Post>> GetAll()
 		{
-			return await GetAllHelper().OrderBy(o=>o.CreationDate).ToListAsync();
+			return await GetAllHelper().ToListAsync();
 		}
 	}
 }

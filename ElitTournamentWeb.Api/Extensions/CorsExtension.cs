@@ -12,7 +12,7 @@ namespace ElitTournamentWeb.Api.Extensions
 					b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials().WithExposedHeaders("Token-Expired"));
 
 				options.AddPolicy("OriginPolicy",
-					b => b.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+					b => b.WithOrigins("http://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 			});
 		}
 	}
