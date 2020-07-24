@@ -6,12 +6,14 @@ import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-      ScheduleHomeComponent
+      ScheduleHomeComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     ScheduleRoutingModule
-  ]
+  ],
+    entryComponents: [
+    ]
 })
 export class ScheduleModule { }

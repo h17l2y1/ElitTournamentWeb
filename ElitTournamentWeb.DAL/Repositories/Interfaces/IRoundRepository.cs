@@ -4,10 +4,8 @@ using ElitTournamentWeb.Entities.Entities;
 
 namespace ElitTournamentWeb.DAL.Repositories.Interfaces
 {
-	public interface IScheduleRepository : IBaseRepository<Schedule>
+	public interface IRoundRepository : IBaseRepository<Round>
 	{
-		Task<IEnumerable<Schedule>> GetAll(int version);
-
-		Task<string> FindGame(string teamName, int version);
+		Task<IEnumerable<Round>> GetAll(int seasonId);
 	}
 }

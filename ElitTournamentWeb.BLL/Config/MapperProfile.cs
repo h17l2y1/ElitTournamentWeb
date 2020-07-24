@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using ElitTournamentWeb.Entities.Entities;
+using ElitTournamentWeb.ViewModels.Game;
 using ElitTournamentWeb.ViewModels.League;
+using ElitTournamentWeb.ViewModels.Place;
 using ElitTournamentWeb.ViewModels.Player;
 using ElitTournamentWeb.ViewModels.Post;
+using ElitTournamentWeb.ViewModels.Round;
 using ElitTournamentWeb.ViewModels.Season;
 using ElitTournamentWeb.ViewModels.Team;
 
@@ -30,6 +33,12 @@ namespace ElitTournamentWeb.BLL.Config
 			CreateMap<UpdateSeasonRequest, Season>();
 			// CreateMap<Season, GetSeasonResponse>();
 			CreateMap<GetSeasonResponse, Season>().ReverseMap();
+			
+			
+			CreateMap<RoundItem, Round>().ReverseMap();
+			CreateMap<PlaceItem, Place>().ReverseMap();
+			CreateMap<GameItem, Game>().ReverseMap();
+			CreateMap<CreateRoundRequest, Round>().ReverseMap();
 			
 		}
 	}

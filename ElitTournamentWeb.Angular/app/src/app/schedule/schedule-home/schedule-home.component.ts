@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../../core/services/auth.service';
+import {TokenData} from '../../core/models/token-data';
+import {ScheduleItem} from '../../core/models/schedule/schedule-item';
 
 @Component({
   selector: 'app-schedule-home',
@@ -6,11 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule-home.component.css']
 })
 export class ScheduleHomeComponent implements OnInit {
-  panelOpenState = false;
 
-  constructor() { }
+  public user: TokenData;
+  public editMode: boolean;
+
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.user = this.authService.getCurrentUser();
   }
+
+  onAddRound(){
+  }
+
+  onSaveAll(): void {
+    this.editMode = !this.editMode;
+  }
+
+
 
 }

@@ -3,7 +3,22 @@
         <mat-card-content>
             <h2>Расписание</h2>
         </mat-card-content>
+        <div *ngIf="user" class="addButton">
+            <button *ngIf="!editMode" mat-mini-fab color="primary" (click)="editMode = !editMode">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editMode" mat-mini-fab color="primary" (click)="onSaveAll()">
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
     </mat-card>
+    <br>
+
+    <div *ngIf="user" class="addButton">
+        <button *ngIf="editMode" mat-mini-fab color="primary" (click)="onAddRound()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
     <br>
 
     <mat-accordion>
@@ -72,7 +87,7 @@
 
         </mat-expansion-panel>
 
-        <mat-expansion-panel >
+        <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     5 Тур

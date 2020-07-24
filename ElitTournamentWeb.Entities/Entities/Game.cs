@@ -1,15 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
 	public class Game : BaseEntity
 	{
-		public string Match { get; set; }
+		public int Field { get; set; }
+		public string TeamHome { get; set; }
+		public string TeamGuest { get; set; }
+		public TimeSpan Time { get; set; }
 
-		[ForeignKey("ScheduleId")]
-		public int ScheduleId { get; set; }
+		[ForeignKey("PlaceId")]
+		public int PlaceId { get; set; }
 
 		[NotMapped]
-		public virtual Schedule Schedule { get; set; }
+		public virtual Place Place { get; set; }
 	}
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElitTournamentWeb.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200724114815_init")]
+    [Migration("20200724142408_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,13 +29,19 @@ namespace ElitTournamentWeb.DAL.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<string>("Match");
+                    b.Property<int>("Fileld");
 
-                    b.Property<int>("ScheduleId");
+                    b.Property<int>("PlaceId");
+
+                    b.Property<string>("TeamGuest");
+
+                    b.Property<string>("TeamHome");
+
+                    b.Property<TimeSpan>("Time");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ScheduleId");
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("Games");
                 });
@@ -57,6 +63,27 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.HasIndex("SeasonId");
 
                     b.ToTable("Leagues");
+                });
+
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Place", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("RoundId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoundId");
+
+                    b.ToTable("Places");
                 });
 
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Player", b =>
@@ -105,7 +132,7 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Schedule", b =>
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Round", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,13 +140,13 @@ namespace ElitTournamentWeb.DAL.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<int>("RoundNumber");
 
-                    b.Property<string>("Place");
+                    b.Property<string>("SeasonId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Rounds");
                 });
 
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Season", b =>
@@ -197,9 +224,9 @@ namespace ElitTournamentWeb.DAL.Migrations
 
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Game", b =>
                 {
-                    b.HasOne("ElitTournamentWeb.Entities.Entities.Schedule")
+                    b.HasOne("ElitTournamentWeb.Entities.Entities.Place")
                         .WithMany("Games")
-                        .HasForeignKey("ScheduleId")
+                        .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -208,6 +235,14 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.HasOne("ElitTournamentWeb.Entities.Entities.Season")
                         .WithMany("Leagues")
                         .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Place", b =>
+                {
+                    b.HasOne("ElitTournamentWeb.Entities.Entities.Round")
+                        .WithMany("Places")
+                        .HasForeignKey("RoundId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
