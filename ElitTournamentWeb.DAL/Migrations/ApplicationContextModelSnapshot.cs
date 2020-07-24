@@ -48,7 +48,11 @@ namespace ElitTournamentWeb.DAL.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("SeasonId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SeasonId");
 
                     b.ToTable("Leagues");
                 });
@@ -116,6 +120,21 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.ToTable("Schedules");
                 });
 
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Season", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Seasons");
+                });
+
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -179,6 +198,14 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.HasOne("ElitTournamentWeb.Entities.Entities.Schedule")
                         .WithMany("Games")
                         .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.League", b =>
+                {
+                    b.HasOne("ElitTournamentWeb.Entities.Entities.Season")
+                        .WithMany("Leagues")
+                        .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

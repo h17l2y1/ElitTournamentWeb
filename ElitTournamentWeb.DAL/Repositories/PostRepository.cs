@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ElitTournamentWeb.DAL.Config;
 using ElitTournamentWeb.DAL.Repositories.Interfaces;

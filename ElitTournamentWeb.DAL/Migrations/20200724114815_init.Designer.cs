@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElitTournamentWeb.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200628204338_RemoveEditModeFromPost")]
-    partial class RemoveEditModeFromPost
+    [Migration("20200724114815_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,7 +50,11 @@ namespace ElitTournamentWeb.DAL.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("SeasonId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SeasonId");
 
                     b.ToTable("Leagues");
                 });
@@ -118,6 +122,21 @@ namespace ElitTournamentWeb.DAL.Migrations
                     b.ToTable("Schedules");
                 });
 
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Season", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Seasons");
+                });
+
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -126,27 +145,27 @@ namespace ElitTournamentWeb.DAL.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<int>("Drawn");
+                    b.Property<int?>("Drawn");
 
-                    b.Property<int>("GoalDifference");
+                    b.Property<int?>("GoalDifference");
 
-                    b.Property<int>("Goals");
+                    b.Property<int?>("Goals");
 
                     b.Property<string>("Icon");
 
-                    b.Property<int>("LeagueId");
+                    b.Property<int?>("LeagueId");
 
-                    b.Property<int>("Lost");
+                    b.Property<int?>("Lost");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("Played");
+                    b.Property<int?>("Played");
 
-                    b.Property<int>("Points");
+                    b.Property<int?>("Points");
 
-                    b.Property<int>("Position");
+                    b.Property<int?>("Position");
 
-                    b.Property<int>("Won");
+                    b.Property<int?>("Won");
 
                     b.HasKey("Id");
 
@@ -184,6 +203,14 @@ namespace ElitTournamentWeb.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.League", b =>
+                {
+                    b.HasOne("ElitTournamentWeb.Entities.Entities.Season")
+                        .WithMany("Leagues")
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ElitTournamentWeb.Entities.Entities.Player", b =>
                 {
                     b.HasOne("ElitTournamentWeb.Entities.Entities.Team")
@@ -195,8 +222,7 @@ namespace ElitTournamentWeb.DAL.Migrations
                 {
                     b.HasOne("ElitTournamentWeb.Entities.Entities.League")
                         .WithMany("Teams")
-                        .HasForeignKey("LeagueId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LeagueId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,6 @@
-import {TeamItem} from '../team/team-item';
 import {LeagueItem} from '../league/league-item';
 
-export class CreateSeason {
+export class Season {
     name: string;
     leagues: Array<LeagueItem>;
 }

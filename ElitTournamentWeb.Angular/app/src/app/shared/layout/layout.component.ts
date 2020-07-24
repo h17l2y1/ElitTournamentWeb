@@ -1,17 +1,17 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from './../../core/services/auth.service';
+import { AuthenticationService } from '../../core/services/auth.service';
 import { SpinnerService } from '../../core/services/spinner.service';
-import { TokenData } from 'src/app/core/models/token-data';
+import {TokenData} from '../../core/models/token-data';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent implements OnInit /*,OnDestroy, */, AfterViewInit {
+export class LayoutComponent implements OnInit, AfterViewInit {
 
     private _mobileQueryListener: () => void;
     mobileQuery: MediaQueryList;

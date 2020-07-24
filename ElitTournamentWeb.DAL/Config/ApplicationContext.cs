@@ -23,5 +23,7 @@ namespace ElitTournamentWeb.DAL.Config
 		
 		public DbSet<Post> Posts { get; set; }
 		
+		public DbSet<Season> Seasons { get; set; }
+		
 	}
 }

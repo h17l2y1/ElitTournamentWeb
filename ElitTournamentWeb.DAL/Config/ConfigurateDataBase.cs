@@ -52,6 +52,7 @@ namespace ElitTournamentWeb.DAL.Config
 			services.AddTransient<IGameRepository, GameRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IPostRepository, PostRepository>();
+			services.AddTransient<ISeasonRepository, SeasonRepository>();
 		}
 	}
 }

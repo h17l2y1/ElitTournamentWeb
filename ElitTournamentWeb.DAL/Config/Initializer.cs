@@ -15,7 +15,7 @@ namespace ElitTournamentWeb.DAL.Config
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
 			SeedUsers(serviceProvider).Wait();
 			SeedPosts(serviceProvider).Wait();
-			SeedLeagues(serviceProvider).Wait();
+			// SeedLeagues(serviceProvider).Wait();
 			SeedTeams(serviceProvider).Wait();
 		}
 

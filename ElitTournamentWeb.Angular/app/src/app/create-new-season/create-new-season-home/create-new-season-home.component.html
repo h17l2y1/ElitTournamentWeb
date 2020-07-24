@@ -5,93 +5,66 @@
 <div class="page-container">
     <div class="season-container">
         <form [formGroup]="seasonForm">
-
             <mat-card>
-                <!--    <div class="addButton">-->
-                <!--        <button *ngIf="!onCreate" mat-mini-fab color="primary" (click)="onCreate = !onCreate">-->
-                <!--            <mat-icon>edit</mat-icon>-->
-                <!--        </button>-->
-                <!--        <button *ngIf="onCreate" mat-mini-fab color="primary">-->
-                <!--            <mat-icon>save</mat-icon>-->
-                <!--        </button>-->
-                <!--    </div>-->
-                <!--    <br>-->
-
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Название нового сезона</mat-label>
-                        <input formControlName="seasonName" matInput placeholder="Осенний сезон...">
+                        <input formControlName="name" matInput placeholder="Осенний сезон...">
                     </mat-form-field>
 
                     <div class="add-league-container">
                         <div class="league-title">
                             Добавить новую лигу
                         </div>
-                        <button mat-mini-fab color="primary" (click)="onAddNewLeague()">
+                        <button mat-mini-fab color="primary" (click)="addDefaultLeague()">
                             <mat-icon>add</mat-icon>
                         </button>
                     </div>
-                    <!--            <div formArrayName="leagues">-->
-                    <!--            </div>-->
                 </div>
             </mat-card>
             <br>
 
-            <mat-card class="league-container">
-                <mat-form-field appearance="fill" class="w50">
-                    <mat-label>Название новой лиги</mat-label>
-                    <input formControlName="seasonName" matInput placeholder="1 лига...">
-                </mat-form-field>
-                <div class="season-team-container w100">
-                    <div class="example-container">
-                        <h2>Команды Лиги</h2>
-                        <div
-                                cdkDropList
-                                #todoList="cdkDropList"
-                                [cdkDropListData]="todo"
-                                [cdkDropListConnectedTo]="[doneList]"
-                                class="example-list"
-                                (cdkDropListDropped)="drop($event)">
-                            <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-                        </div>
+            <div formArrayName="leagues">
+                <div *ngFor="let league of getLeagues.controls; let i=index">
+                    <div [formGroupName]="i">
+                        <mat-card class="league-container">
+                            <mat-form-field appearance="fill" class="w50">
+                                <mat-label>Название новой лиги</mat-label>
+                                <input formControlName="name" matInput placeholder="1 лига...">
+                            </mat-form-field>
+
+                            <div class="season-team-container w100">
+                                <div class="example-container">
+                                    <h2>Команды Лиги</h2>
+                                    <table mat-table [dataSource]="league.value.teams" class="mat-elevation-z8">
+                                        <ng-container matColumnDef="name">
+                                            <th mat-header-cell *matHeaderCellDef> Название </th>
+                                            <td mat-cell *matCellDef="let team"> {{team.name}} </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+                                </div>
+
+                                <div class="teams-container">
+                                    <div class="example-container">
+                                        <h2>Все команды</h2>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Команды</mat-label>
+                                            <mat-select formControlName="teams" multiple>
+                                                <mat-option *ngFor="let team of allTeams" [value]="team">{{team.name}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                        <br>
                     </div>
-
-                    <!--            <div class="example-container">-->
-                    <!--                <h2>Все команды</h2>-->
-                    <!--                <div-->
-                    <!--                        cdkDropList-->
-                    <!--                        #doneList="cdkDropList"-->
-                    <!--                        [cdkDropListData]="done"-->
-                    <!--                        [cdkDropListConnectedTo]="[todoList]"-->
-                    <!--                        class="example-list"-->
-                    <!--                        (cdkDropListDropped)="drop($event)">-->
-                    <!--                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>-->
-                    <!--                </div>-->
-                    <!--            </div>-->
                 </div>
-            </mat-card>
-
+            </div>
+            <button mat-flat-button color="primary" class="btn-save" (click)="saveNewLeague()">Создать сезон</button>
         </form>
     </div>
-    <div class="teams-container">
-        <div class="example-container">
-            <h2>Все команды</h2>
-            <div
-                    cdkDropList
-                    #doneList="cdkDropList"
-                    [cdkDropListData]="done"
-                    [cdkDropListConnectedTo]="[todoList]"
-                    class="example-list"
-                    (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-            </div>
-        </div>
-    </div>
 </div>
-
-
-
-
-
-
-
