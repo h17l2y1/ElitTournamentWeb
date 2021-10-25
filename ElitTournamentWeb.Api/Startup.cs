@@ -20,10 +20,12 @@ namespace ElitTournamentWeb.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllers();
+
 			services.InjectBusinessLogicDependency(Configuration);
 
 			CorsExtension.Add(services);
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			// services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -32,17 +34,21 @@ namespace ElitTournamentWeb.Api
 			{
 				app.UseDeveloperExceptionPage();
 			}
-			else
-			{
-				app.UseHsts();
-			}
 
+			app.UseHttpsRedirection();
+
+			app.UseRouting();
+
+			app.UseAuthorization();
 			
 			app.UseCors("AllowAllPolicy");
+
 			app.UseMiddleware<ErrorHandlingMiddleware>();
-			
-			app.UseHttpsRedirection();
-			app.UseMvc();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
 		}
 	}
 }
