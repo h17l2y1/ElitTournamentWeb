@@ -6,16 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ElitTournamentWeb.DAL.Repositories
 {
-	public class UserRepository : BaseRepository<User>, IUserRepository
+	public class UserRepository : BaseRepository<UserOld>, IUserRepository
 	{
 		public UserRepository(ApplicationContext context) : base(context)
 		{
 		}
 
-		public async Task<User> FindByLogin(string login)
+		public async Task<UserOld> FindByLogin(string login)
 		{
-			User user = await _dbSet.SingleOrDefaultAsync(x => x.Login == login);
-			return user;
+			UserOld userOld = await _dbSet.SingleOrDefaultAsync(x => x.Login == login);
+			return userOld;
 		}
 	}
 }

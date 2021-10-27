@@ -5,6 +5,6 @@ namespace ElitTournamentWeb.BLL.Helpers.Interfaces
 {
 	public interface IJwtHelper
 	{
-		JwtView CreateToken(User user);
+		JwtView CreateToken(UserOld userOld);
 	}
 }

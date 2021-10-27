@@ -25,10 +25,10 @@ namespace ElitTournamentWeb.DAL.Config
 
 			if (!context.Users.Any())
 			{
-				List<User> admins = new List<User>()
+				List<UserOld> admins = new List<UserOld>()
 				{
-					new User() {Login = "admin1", Password = "admin", isAdmin = true, FullName = "Admin1 Adminov1"},
-					new User() {Login = "admin2", Password = "admin", isAdmin = true, FullName = "Admin2 Adminov2"}
+					new UserOld() {Login = "admin1", Password = "admin", isAdmin = true, FullName = "Admin1 Adminov1"},
+					new UserOld() {Login = "admin2", Password = "admin", isAdmin = true, FullName = "Admin2 Adminov2"}
 				};
 
 				await context.AddRangeAsync(admins);

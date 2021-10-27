@@ -1,6 +1,6 @@
 ﻿namespace ElitTournamentWeb.Entities.Entities
 {
-	public class User : BaseEntity
+	public class UserOld : BaseEntity
 	{
 		public string Login { get; set; }
 		public string FullName { get; set; }

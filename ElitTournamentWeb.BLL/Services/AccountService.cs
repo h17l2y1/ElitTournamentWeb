@@ -22,30 +22,30 @@ namespace ElitTournamentWeb.BLL.Services
 
 		public async Task<JwtView> LogIn(LogInRequest logInRequest)
 		{
-			User user = await UserValidation(logInRequest);
-			if (user != null)
+			UserOld userOld = await UserValidation(logInRequest);
+			if (userOld != null)
 			{
-				JwtView view = _jwtHelper.CreateToken(user);
+				JwtView view = _jwtHelper.CreateToken(userOld);
 				return view;
 			}
 			throw new UserNotFoundException("Не правильные данные");
 		}
 
-		private async Task<User> UserValidation(LogInRequest logInRequest)
+		private async Task<UserOld> UserValidation(LogInRequest logInRequest)
 		{
 			if (string.IsNullOrEmpty(logInRequest.Login) || string.IsNullOrEmpty(logInRequest.Password))
 			{
 				return null;
 			}
 
-			User user = await _userRepository.FindByLogin(logInRequest.Login);
-			if (user != null)
+			UserOld userOld = await _userRepository.FindByLogin(logInRequest.Login);
+			if (userOld != null)
 			{
-				bool passwordIsValid = user.Password == logInRequest.Password ? true : false;
+				bool passwordIsValid = userOld.Password == logInRequest.Password ? true : false;
 
 				if (passwordIsValid)
 				{
-					return user;
+					return userOld;
 				}
 			}
 

@@ -34,6 +34,10 @@ namespace ElitTournamentWeb.Api
 			{
 				app.UseDeveloperExceptionPage();
 			}
+			else
+			{
+				app.UseHsts();
+			}
 
 			app.UseHttpsRedirection();
 

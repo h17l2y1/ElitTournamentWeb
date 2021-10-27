@@ -3,8 +3,8 @@ using ElitTournamentWeb.Entities.Entities;
 
 namespace ElitTournamentWeb.DAL.Repositories.Interfaces
 {
-	public interface IUserRepository : IBaseRepository<User>
+	public interface IUserRepository : IBaseRepository<UserOld>
 	{
-		Task<User> FindByLogin(string login);
+		Task<UserOld> FindByLogin(string login);
 	}
 }

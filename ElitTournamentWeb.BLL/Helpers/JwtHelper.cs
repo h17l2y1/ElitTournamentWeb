@@ -21,9 +21,9 @@ namespace ElitTournamentWeb.BLL.Helpers
 			_authOptions = authOptions.Value;
 		}
 		
-		public JwtView CreateToken(User user)
+		public JwtView CreateToken(UserOld userOld)
 		{
-			ClaimsIdentity identity = GetIdentity(user);
+			ClaimsIdentity identity = GetIdentity(userOld);
 			JwtSecurityToken jwt = GetToken(identity);
 			string stringToken = new JwtSecurityTokenHandler().WriteToken(jwt);
 			JwtView result = new JwtView() {AccessToken = stringToken};
@@ -43,14 +43,14 @@ namespace ElitTournamentWeb.BLL.Helpers
 			return jwt;
 		}
 
-		private ClaimsIdentity GetIdentity(User user)
+		private ClaimsIdentity GetIdentity(UserOld userOld)
 		{
 			var claimsList = new List<Claim>
 			{
-				new Claim("login", user.Login),
-				new Claim("id",user.Id.ToString()),
-				new Claim("isAdmin", user.isAdmin.ToString()),
-				new Claim("fullName", user.FullName)
+				new Claim("login", userOld.Login),
+				new Claim("id",userOld.Id.ToString()),
+				new Claim("isAdmin", userOld.isAdmin.ToString()),
+				new Claim("fullName", userOld.FullName)
 			};
 			ClaimsIdentity claimsIdentity = new ClaimsIdentity(claimsList, "Token");
 			return claimsIdentity;

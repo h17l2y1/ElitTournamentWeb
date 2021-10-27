@@ -21,5 +21,6 @@ namespace ElitTournamentWeb.Api.Controllers
 			var responseModel = await _service.LogIn(logInRequest);
 			return Ok(responseModel);
 		}
+
 	}
 }

@@ -9,7 +9,7 @@ namespace ElitTournamentWeb.DAL.Config
 		{
 		}
 		
-		public DbSet<User> Users { get; set; }
+		public DbSet<UserOld> Users { get; set; }
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Season> Seasons { get; set; }
 		public DbSet<League> Leagues { get; set; }
