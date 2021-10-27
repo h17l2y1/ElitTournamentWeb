@@ -24,7 +24,7 @@ namespace ElitTournamentWeb.Api
 
 			services.InjectBusinessLogicDependency(Configuration);
 
-			CorsExtension.Add(services);
+			// CorsExtension.Add(services);
 			// services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
