@@ -2,7 +2,6 @@
 using ElitTournamentWeb.BLL.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,7 +20,7 @@ namespace ElitTournamentWeb.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
-
+			
 			services.InjectBusinessLogicDependency(Configuration);
 
 			// CorsExtension.Add(services);
