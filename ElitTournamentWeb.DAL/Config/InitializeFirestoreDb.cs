@@ -22,6 +22,7 @@ namespace ElitTournamentWeb.DAL.Config
             });
         }
         
+        // Only for my case
         private static string GetPathByOs(IConfiguration configuration)
         {
             OperatingSystem os = Environment.OSVersion;
