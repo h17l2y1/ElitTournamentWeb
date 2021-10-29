@@ -21,7 +21,7 @@ namespace ElitTournamentWeb.DAL.Repositories
 			_dbSet = _context.Set<TEntity>();
 		}
 
-		public virtual async Task<TEntity> GetByIdAsync(int id)
+		public virtual async Task<TEntity> GetByIdAsync(string id)
 		{
 			return await _dbSet.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
 		}
@@ -43,7 +43,7 @@ namespace ElitTournamentWeb.DAL.Repositories
 			await _context.SaveChangesAsync();
 		}
 
-		public virtual async Task RemoveByIdAsync(int id)
+		public virtual async Task RemoveByIdAsync(string id)
 		{
 			var entity = await GetByIdAsync(id);
 			_dbSet.Remove(entity);

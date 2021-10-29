@@ -2,18 +2,14 @@ using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
-    public class Base
-    {
-        public string Id { get; set; } 
-    }
     [FirestoreData]
-    public class City: Base
+    public class City: BaseEntity
     {
         [FirestoreProperty]
         public string Name { get; set; } 
     }
     [FirestoreData]
-    public class User : Base
+    public class User : BaseEntity
     {  
         [FirestoreProperty]
         public string Name { get; set; }

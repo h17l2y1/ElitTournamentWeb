@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ElitTournamentWeb.BLL.Services.Interfaces;
+using ElitTournamentWeb.ViewModels;
 using ElitTournamentWeb.ViewModels.Post;
 using Microsoft.AspNetCore.Mvc;
 

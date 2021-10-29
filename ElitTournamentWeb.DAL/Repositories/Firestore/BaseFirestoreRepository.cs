@@ -1,57 +1,52 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ElitTournamentWeb.DAL.Repositories.Firestore.Interface;
-using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.Entities.Entities.Interfaces;
 using Google.Cloud.Firestore;
 using Newtonsoft.Json;
 
 namespace ElitTournamentWeb.DAL.Repositories.Firestore
 {
-    public class BaseFirestoreRepository
+    public abstract class BaseFirestoreRepository<TEntity> : IBaseFirestoreRepository<TEntity> where TEntity : class, IBaseEntity
     {
-        private string collectionName;
-        public FirestoreDb fireStoreDb;
+        private readonly string _collectionName;
+        protected readonly FirestoreDb FireStoreDb;
 
-        public BaseFirestoreRepository(string CollectionName)
+        public BaseFirestoreRepository(FirestoreDb fireStoreDb, string collectionName)
         {
-            // string filepath = "/Users/MyPCUser/Downloads/-firebase-adminsdk-ivk8q-d072fdf334.json";
-            string filepath = "/Users/new/Desktop/elittournament-firebase-adminsdk-11w6j-a8042c3255.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
-            fireStoreDb = FirestoreDb.Create("elittournament");
-            collectionName = CollectionName;
+            FireStoreDb = fireStoreDb;
+            _collectionName = collectionName;
         }
 
-        public T Add<T>(T record) where T : Base
+        public virtual TEntity Add(TEntity record)
         {
-            CollectionReference colRef = fireStoreDb.Collection(collectionName);
+            CollectionReference colRef = FireStoreDb.Collection(_collectionName);
             DocumentReference doc = colRef.AddAsync(record).GetAwaiter().GetResult();
             record.Id = doc.Id;
             return record;
         }
 
-        public bool Update<T>(T record) where T : Base
+        public virtual bool Update(TEntity record)
         {
-            DocumentReference recordRef = fireStoreDb.Collection(collectionName).Document(record.Id);
+            DocumentReference recordRef = FireStoreDb.Collection(_collectionName).Document(record.Id);
             recordRef.SetAsync(record, SetOptions.MergeAll).GetAwaiter().GetResult();
             return true;
         }
 
-        public bool Delete<T>(T record) where T : Base
+        public virtual bool Delete(TEntity record)
         {
-            DocumentReference recordRef = fireStoreDb.Collection(collectionName).Document(record.Id);
+            DocumentReference recordRef = FireStoreDb.Collection(_collectionName).Document(record.Id);
             recordRef.DeleteAsync().GetAwaiter().GetResult();
             return true;
         }
 
-        public T Get<T>(T record) where T : Base
+        public virtual TEntity Get(TEntity record)
         {
-            DocumentReference docRef = fireStoreDb.Collection(collectionName).Document(record.Id);
+            DocumentReference docRef = FireStoreDb.Collection(_collectionName).Document(record.Id);
             DocumentSnapshot snapshot = docRef.GetSnapshotAsync().GetAwaiter().GetResult();
             if (snapshot.Exists)
             {
-                T usr = snapshot.ConvertTo<T>();
+                TEntity usr = snapshot.ConvertTo<TEntity>();
                 usr.Id = snapshot.Id;
                 return usr;
             }
@@ -61,18 +56,18 @@ namespace ElitTournamentWeb.DAL.Repositories.Firestore
             }
         }
 
-        public List<T> GetAll<T>() where T : Base
+        public virtual List<TEntity> GetAll()
         {
-            Query query = fireStoreDb.Collection(collectionName);
+            Query query = FireStoreDb.Collection(_collectionName);
             QuerySnapshot querySnapshot = query.GetSnapshotAsync().GetAwaiter().GetResult();
-            List<T> list = new List<T>();
+            List<TEntity> list = new List<TEntity>();
             foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
             {
                 if (documentSnapshot.Exists)
                 {
                     Dictionary<string, object> city = documentSnapshot.ToDictionary();
                     string json = JsonConvert.SerializeObject(city);
-                    T newItem = JsonConvert.DeserializeObject<T>(json);
+                    TEntity newItem = JsonConvert.DeserializeObject<TEntity>(json);
                     newItem.Id = documentSnapshot.Id;
                     list.Add(newItem);
                 }
@@ -81,17 +76,17 @@ namespace ElitTournamentWeb.DAL.Repositories.Firestore
             return list;
         }
 
-        public List<T> QueryRecords<T>(Query query) where T : Base
+        public virtual List<TEntity> QueryRecords(Query query)
         {
             QuerySnapshot querySnapshot = query.GetSnapshotAsync().GetAwaiter().GetResult();
-            List<T> list = new List<T>();
+            List<TEntity> list = new List<TEntity>();
             foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
             {
                 if (documentSnapshot.Exists)
                 {
                     Dictionary<string, object> city = documentSnapshot.ToDictionary();
                     string json = JsonConvert.SerializeObject(city);
-                    T newItem = JsonConvert.DeserializeObject<T>(json);
+                    TEntity newItem = JsonConvert.DeserializeObject<TEntity>(json);
                     newItem.Id = documentSnapshot.Id;
                     list.Add(newItem);
                 }

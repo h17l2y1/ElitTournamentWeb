@@ -4,7 +4,7 @@ namespace ElitTournamentWeb.Entities.Entities.Interfaces
 {
 	public interface IBaseEntity
 	{
-		int Id { get; set; }
+		string Id { get; set; }
 
 		DateTime CreationDate { get; set; }
 	}

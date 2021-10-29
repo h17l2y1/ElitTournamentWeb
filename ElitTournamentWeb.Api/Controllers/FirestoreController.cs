@@ -1,4 +1,5 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ElitTournamentWeb.BLL.Services.Interfaces;
 using ElitTournamentWeb.DAL.Repositories.Firestore;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels;
@@ -10,25 +11,17 @@ namespace ElitTournamentWeb.Api.Controllers
     [ApiController]
     public class FirestoreController: ControllerBase
     {
-        private readonly UserFirestoreRepository repository;
+        private readonly IFirestoreService _service;
 
-        public FirestoreController()
+        public FirestoreController(IFirestoreService service)
         {
-            repository = new UserFirestoreRepository();
+            _service = service;
         }
-        
-        		
+
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UserView request)
+        public async Task<IActionResult> Create([FromBody]UserView request)
         {
-            var user = new User
-            {
-                Id = request.Id,
-                Name = request.Name,
-                Surname = request.Surname
-            };
-            
-            var responseModel = repository.Add(user);
+            var responseModel = _service.Add(request);
             return Ok(responseModel);
         }
     }

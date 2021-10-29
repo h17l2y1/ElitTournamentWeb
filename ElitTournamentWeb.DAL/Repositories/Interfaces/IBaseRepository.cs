@@ -9,7 +9,7 @@ namespace ElitTournamentWeb.DAL.Repositories.Interfaces
 
         Task CreateAsync(IEnumerable<TEntity> collection);
 
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(string id);
 
         Task<IEnumerable<TEntity>> GetAll();
 
@@ -17,7 +17,7 @@ namespace ElitTournamentWeb.DAL.Repositories.Interfaces
         
         Task Update(IEnumerable<TEntity> entity);
 
-        Task RemoveByIdAsync(int id);
+        Task RemoveByIdAsync(string id);
 
         Task RemoveAsync(TEntity entity);
         
