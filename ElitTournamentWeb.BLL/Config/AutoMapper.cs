@@ -9,6 +9,7 @@ namespace ElitTournamentWeb.BLL.Config
         {
             var config = new MapperConfiguration(c =>
             {
+                // TODO: Separate this into many files
                 c.AddProfile(new MapperProfile());
             });
 

@@ -1,21 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ElitTournamentWeb.DAL.Config;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
+﻿using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities;
-using Microsoft.EntityFrameworkCore;
+using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.DAL.Repositories
 {
-	public class PostRepository : BaseRepository<Post>, IPostRepository
-	{
-		public PostRepository(ApplicationContext context) : base(context)
-		{
-		}
-
-		public async override Task<IEnumerable<Post>> GetAll()
-		{
-			return await GetAllHelper().ToListAsync();
-		}
-	}
+    public class PostRepository: BaseRepository<Post>, IPostRepository
+    {
+        public PostRepository(FirestoreDb firestore): base(firestore)
+        {
+        }
+    }
 }

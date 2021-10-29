@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace ElitTournamentWeb.DAL.Repositories.Firestore.Interface
+namespace ElitTournamentWeb.DAL.Repositories.Interface
 {
-    public interface IBaseFirestoreRepository<TEntity>
+    public interface IBaseRepository<TEntity>
     {
         TEntity Get(TEntity record);
         

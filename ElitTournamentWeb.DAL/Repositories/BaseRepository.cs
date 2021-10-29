@@ -1,82 +1,97 @@
-﻿using System.Collections;
-using ElitTournamentWeb.DAL.Config;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
+using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities.Interfaces;
+using Google.Cloud.Firestore;
+using Newtonsoft.Json;
 
 namespace ElitTournamentWeb.DAL.Repositories
 {
-	public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
-	{
-		private ApplicationContext _context { get; set; }
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
+    {
+        private readonly string _collectionName;
+        private readonly FirestoreDb _firestore;
 
-		protected DbSet<TEntity> _dbSet { get; set; }
+        protected BaseRepository(FirestoreDb firestore)
+        {
+            _collectionName = $"{nameof(TEntity)}s";
+            _firestore = firestore;
+        }
 
-		public BaseRepository(ApplicationContext context)
-		{
-			_context = context;
-			_dbSet = _context.Set<TEntity>();
-		}
+        public virtual TEntity Add(TEntity record)
+        {
+            CollectionReference colRef = _firestore.Collection(_collectionName);
+            DocumentReference doc = colRef.AddAsync(record).GetAwaiter().GetResult();
+            record.Id = doc.Id;
+            return record;
+        }
 
-		public virtual async Task<TEntity> GetByIdAsync(string id)
-		{
-			return await _dbSet.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
-		}
+        public virtual bool Update(TEntity record)
+        {
+            DocumentReference recordRef = _firestore.Collection(_collectionName).Document(record.Id);
+            recordRef.SetAsync(record, SetOptions.MergeAll).GetAwaiter().GetResult();
+            return true;
+        }
 
-		public virtual async Task<IEnumerable<TEntity>> GetAll()
-		{
-			return await GetAllHelper().ToListAsync();
-		}
+        public virtual bool Delete(TEntity record)
+        {
+            DocumentReference recordRef = _firestore.Collection(_collectionName).Document(record.Id);
+            recordRef.DeleteAsync().GetAwaiter().GetResult();
+            return true;
+        }
 
-		public virtual async Task CreateAsync(TEntity entity)
-		{
-			await _dbSet.AddAsync(entity);
-			await _context.SaveChangesAsync();
-		}
+        public virtual TEntity Get(TEntity record)
+        {
+            DocumentReference docRef = _firestore.Collection(_collectionName).Document(record.Id);
+            DocumentSnapshot snapshot = docRef.GetSnapshotAsync().GetAwaiter().GetResult();
+            if (snapshot.Exists)
+            {
+                TEntity usr = snapshot.ConvertTo<TEntity>();
+                usr.Id = snapshot.Id;
+                return usr;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-		public virtual async Task CreateAsync(IEnumerable<TEntity> collection)
-		{
-			await _dbSet.AddRangeAsync(collection);
-			await _context.SaveChangesAsync();
-		}
+        public virtual List<TEntity> GetAll()
+        {
+            Query query = _firestore.Collection(_collectionName);
+            QuerySnapshot querySnapshot = query.GetSnapshotAsync().GetAwaiter().GetResult();
+            List<TEntity> list = new List<TEntity>();
+            foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+            {
+                if (documentSnapshot.Exists)
+                {
+                    Dictionary<string, object> city = documentSnapshot.ToDictionary();
+                    string json = JsonConvert.SerializeObject(city);
+                    TEntity newItem = JsonConvert.DeserializeObject<TEntity>(json);
+                    newItem.Id = documentSnapshot.Id;
+                    list.Add(newItem);
+                }
+            }
 
-		public virtual async Task RemoveByIdAsync(string id)
-		{
-			var entity = await GetByIdAsync(id);
-			_dbSet.Remove(entity);
-			await _context.SaveChangesAsync();
-		}
+            return list;
+        }
 
-		public virtual async Task RemoveAsync(TEntity entity)
-		{
-			_dbSet.Remove(entity);
-			await _context.SaveChangesAsync();
-		}
+        public virtual List<TEntity> QueryRecords(Query query)
+        {
+            QuerySnapshot querySnapshot = query.GetSnapshotAsync().GetAwaiter().GetResult();
+            List<TEntity> list = new List<TEntity>();
+            foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+            {
+                if (documentSnapshot.Exists)
+                {
+                    Dictionary<string, object> city = documentSnapshot.ToDictionary();
+                    string json = JsonConvert.SerializeObject(city);
+                    TEntity newItem = JsonConvert.DeserializeObject<TEntity>(json);
+                    newItem.Id = documentSnapshot.Id;
+                    list.Add(newItem);
+                }
+            }
 
-		public virtual async Task RemoveAsync(IEnumerable<TEntity> entities)
-		{
-			_dbSet.RemoveRange(entities);
-			await _context.SaveChangesAsync();
-		}
-		
-		public virtual async Task Update(TEntity entity)
-		{
-			_dbSet.Update(entity);
-			await _context.SaveChangesAsync();
-		}
-		
-		public virtual async Task Update(IEnumerable<TEntity> entities)
-		{
-			_dbSet.UpdateRange(entities);
-			await _context.SaveChangesAsync();
-		}
-
-		protected IQueryable<TEntity> GetAllHelper()
-		{
-			return _dbSet.AsNoTracking();
-		}
-	}
+            return list;
+        }
+    }
 }

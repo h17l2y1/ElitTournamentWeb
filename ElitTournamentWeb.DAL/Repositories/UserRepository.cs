@@ -1,21 +1,22 @@
-﻿using System.Threading.Tasks;
-using ElitTournamentWeb.DAL.Config;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
+using System.Threading.Tasks;
+using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities;
-using Microsoft.EntityFrameworkCore;
+using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.DAL.Repositories
 {
-	public class UserRepository : BaseRepository<UserOld>, IUserRepository
-	{
-		public UserRepository(ApplicationContext context) : base(context)
-		{
-		}
+    public class UserRepository : BaseRepository<User>, IUserRepository
+    {
+        public UserRepository(FirestoreDb firestore) : base(firestore)
+        {
+        }
+        
+        public async Task<UserOld> FindByLogin(string login)
+        {
+            // UserOld userOld = await _dbSet.SingleOrDefaultAsync(x => x.Login == login);
+            // return userOld;
 
-		public async Task<UserOld> FindByLogin(string login)
-		{
-			UserOld userOld = await _dbSet.SingleOrDefaultAsync(x => x.Login == login);
-			return userOld;
-		}
-	}
+            return null;
+        }
+    }
 }

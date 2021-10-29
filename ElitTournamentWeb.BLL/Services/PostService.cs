@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ElitTournamentWeb.BLL.Services.Interfaces;
-using ElitTournamentWeb.DAL.Repositories.Firestore.Interface;
+using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.DAL.Repositories.Interfaces;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels;
@@ -15,9 +15,9 @@ namespace ElitTournamentWeb.BLL.Services
 	{
 		private readonly IMapper _mapper;
 		private readonly IPostRepository _postRepository;
-		private readonly IUserFirestoreInterface _repository;
+		private readonly IUserInterface _repository;
 
-		public PostService(IPostRepository postRepository, IMapper mapper, IUserFirestoreInterface repository)
+		public PostService(IPostRepository postRepository, IMapper mapper, IUserInterface repository)
 		{
 			_mapper = mapper;
 			_postRepository = postRepository;

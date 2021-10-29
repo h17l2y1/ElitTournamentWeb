@@ -17,7 +17,6 @@ namespace ElitTournamentWeb.BLL.Config
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<ISeasonService, SeasonService>();
             services.AddScoped<IRoundService, RoundService>();
-            services.AddScoped<IFirestoreService, FirestoreService>();
         }
     }
 }
