@@ -1,4 +1,5 @@
 ﻿using System;
+using ElitTournamentWeb.DAL.Models;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,9 +11,9 @@ namespace ElitTournamentWeb.DAL.Config
         public static void Add(IServiceCollection services, IConfiguration configuration)
         {
             string firestoreConfigurationPath = GetPathByOs(configuration);
-            string projectId = configuration.GetConnectionString("ProjectId");
-            string googleCredentials = configuration.GetConnectionString("GoogleEnvironment");
-
+            string projectId = configuration.GetSection("Firestore:ProjectId").Value;
+            string googleCredentials = configuration.GetSection("Firestore:GoogleEnvironment").Value;
+            
             Environment.SetEnvironmentVariable(googleCredentials, firestoreConfigurationPath);
         
             services.AddTransient<FirestoreDb>(options =>
@@ -28,10 +29,9 @@ namespace ElitTournamentWeb.DAL.Config
             OperatingSystem os = Environment.OSVersion;
             if (os.Platform == PlatformID.Unix)
             {
-                return configuration.GetConnectionString("MacPath");
+                return configuration.GetSection("Firestore:MacPath").Value;
             }
-            
-            return configuration.GetConnectionString("WindowsPath");
+            return configuration.GetSection("Firestore:WindowsPath").Value;
         }
     }
 }

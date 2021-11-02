@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace ElitTournamentWeb.Api
 {
 	public class Startup
@@ -22,7 +21,7 @@ namespace ElitTournamentWeb.Api
 			services.AddControllers();
 			
 			services.InjectBusinessLogicDependency(Configuration);
-
+			
 			services.AddCors(options =>
 			{
 				options.AddPolicy("Angular",

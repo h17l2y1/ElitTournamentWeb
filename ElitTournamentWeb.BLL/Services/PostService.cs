@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ElitTournamentWeb.BLL.Services.Interfaces;
 using ElitTournamentWeb.DAL.Repositories.Interface;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
 using ElitTournamentWeb.Entities.Entities;
-using ElitTournamentWeb.ViewModels;
 using ElitTournamentWeb.ViewModels.Post;
 
 namespace ElitTournamentWeb.BLL.Services
@@ -15,9 +12,9 @@ namespace ElitTournamentWeb.BLL.Services
 	{
 		private readonly IMapper _mapper;
 		private readonly IPostRepository _postRepository;
-		private readonly IUserInterface _repository;
+		private readonly IUserRepository _repository;
 
-		public PostService(IPostRepository postRepository, IMapper mapper, IUserInterface repository)
+		public PostService(IPostRepository postRepository, IMapper mapper, IUserRepository repository)
 		{
 			_mapper = mapper;
 			_postRepository = postRepository;
@@ -26,10 +23,11 @@ namespace ElitTournamentWeb.BLL.Services
 
 		public async Task<PostView> GetAllPosts()
 		{
-			IEnumerable<Post> posts = await _postRepository.GetAll();
-			IEnumerable<PostItem> postItems = _mapper.Map<IEnumerable<PostItem>>(posts);
-			PostView view = new PostView(postItems);
-			return view;
+			// IEnumerable<Post> posts = await _postRepository.GetAll();
+			// IEnumerable<PostItem> postItems = _mapper.Map<IEnumerable<PostItem>>(posts);
+			// PostView view = new PostView(postItems);
+			// return view;
+			return null;
 		}
 		
 		public async Task Update(UpdateManyPostRequest request)
@@ -39,7 +37,7 @@ namespace ElitTournamentWeb.BLL.Services
 
 			// await _postRepository.CreateAsync(updatePosts.Where(x=>x.Id == 0));
 			// await _postRepository.Update(updatePosts.Where(x=>x.Id != 0));
-			await _postRepository.RemoveAsync(removePosts);
+			// await _postRepository.RemoveAsync(removePosts);
 		}
 	}
 }

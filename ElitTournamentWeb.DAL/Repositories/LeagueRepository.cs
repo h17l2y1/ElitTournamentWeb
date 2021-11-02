@@ -8,8 +8,10 @@ namespace ElitTournamentWeb.DAL.Repositories
     {
         public LeagueRepository(FirestoreDb firestore): base(firestore)
         {
+            CollectionName = $"{nameof(League)}s";
         }
-        
+
+
         // public async override Task<IEnumerable<League>> GetAll()
         // {
         //     IEnumerable<League> result = await _dbSet.Include(x => x.Teams)
@@ -18,6 +20,6 @@ namespace ElitTournamentWeb.DAL.Repositories
         //         .ToListAsync();
         //     return result;
         // }
-        
+
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ElitTournamentWeb.BLL.Exceptions;
 using ElitTournamentWeb.BLL.Helpers.Interfaces;
 using ElitTournamentWeb.BLL.Services.Interfaces;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
+using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels.Auth;
 
@@ -22,30 +21,30 @@ namespace ElitTournamentWeb.BLL.Services
 
 		public async Task<JwtView> LogIn(LogInRequest logInRequest)
 		{
-			UserOld userOld = await UserValidation(logInRequest);
-			if (userOld != null)
+			User user = await UserValidation(logInRequest);
+			if (user != null)
 			{
-				JwtView view = _jwtHelper.CreateToken(userOld);
+				JwtView view = _jwtHelper.CreateToken(user);
 				return view;
 			}
 			throw new UserNotFoundException("Не правильные данные");
 		}
 
-		private async Task<UserOld> UserValidation(LogInRequest logInRequest)
+		private async Task<User> UserValidation(LogInRequest logInRequest)
 		{
 			if (string.IsNullOrEmpty(logInRequest.Login) || string.IsNullOrEmpty(logInRequest.Password))
 			{
 				return null;
 			}
 
-			UserOld userOld = await _userRepository.FindByLogin(logInRequest.Login);
-			if (userOld != null)
+			User user = await _userRepository.FindByLogin(logInRequest.Login);
+			if (user != null)
 			{
-				bool passwordIsValid = userOld.Password == logInRequest.Password ? true : false;
+				bool passwordIsValid = user.Password == logInRequest.Password ? true : false;
 
 				if (passwordIsValid)
 				{
-					return userOld;
+					return user;
 				}
 			}
 

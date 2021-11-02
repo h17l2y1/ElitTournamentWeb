@@ -22,17 +22,15 @@ namespace ElitTournamentWeb.Api.Extensions
 			}
 			catch (Exception ex)
 			{
-				await HandleExceptionAsync(context, ex);
+				await HandleException(context, ex);
 			}
 		}
 
-		public Task HandleExceptionAsync(HttpContext context, Exception exception)
+		public Task HandleException(HttpContext context, Exception exception)
 		{
-			int code = (int)HttpStatusCode.InternalServerError;
-			string message = exception.Message;
 			context.Response.ContentType = "application/json";
-			context.Response.StatusCode = code;
-			return context.Response.WriteAsync(message);
+			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+			return context.Response.WriteAsync(exception.Message);
 		}
 	}
 }

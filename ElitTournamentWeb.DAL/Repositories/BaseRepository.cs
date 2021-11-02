@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities.Interfaces;
 using Google.Cloud.Firestore;
@@ -8,57 +9,65 @@ namespace ElitTournamentWeb.DAL.Repositories
 {
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
-        private readonly string _collectionName;
+        protected string CollectionName;
         private readonly FirestoreDb _firestore;
-
+        
         protected BaseRepository(FirestoreDb firestore)
         {
-            _collectionName = $"{nameof(TEntity)}s";
             _firestore = firestore;
         }
 
-        public virtual TEntity Add(TEntity record)
+        public virtual async Task<TEntity> Add(TEntity record)
         {
-            CollectionReference colRef = _firestore.Collection(_collectionName);
-            DocumentReference doc = colRef.AddAsync(record).GetAwaiter().GetResult();
-            record.Id = doc.Id;
+            DocumentReference addedDocRef = await _firestore.Collection(CollectionName).AddAsync(record);
+            record.Id = addedDocRef.Id;
+            return record;
+        }
+        
+        public virtual async Task Add(List<TEntity> records)
+        {
+            WriteBatch batch = _firestore.StartBatch();
+            foreach (var entity in records)
+            {
+                DocumentReference docRef = _firestore.Collection(CollectionName).Document();
+                batch.Set(docRef, entity);
+            }
+
+            await batch.CommitAsync();
+        }
+
+        public virtual async Task<TEntity> Update(TEntity record)
+        {
+            DocumentReference recordRef = _firestore.Collection(CollectionName).Document(record.Id);
+            await recordRef.SetAsync(record, SetOptions.MergeAll);
             return record;
         }
 
-        public virtual bool Update(TEntity record)
+        public virtual async Task<string> Delete(TEntity record)
         {
-            DocumentReference recordRef = _firestore.Collection(_collectionName).Document(record.Id);
-            recordRef.SetAsync(record, SetOptions.MergeAll).GetAwaiter().GetResult();
-            return true;
+            DocumentReference recordRef = _firestore.Collection(CollectionName).Document(record.Id);
+            await recordRef.DeleteAsync();
+            return record.Id;
         }
 
-        public virtual bool Delete(TEntity record)
+        public virtual async Task<TEntity> Get(TEntity record)
         {
-            DocumentReference recordRef = _firestore.Collection(_collectionName).Document(record.Id);
-            recordRef.DeleteAsync().GetAwaiter().GetResult();
-            return true;
-        }
-
-        public virtual TEntity Get(TEntity record)
-        {
-            DocumentReference docRef = _firestore.Collection(_collectionName).Document(record.Id);
-            DocumentSnapshot snapshot = docRef.GetSnapshotAsync().GetAwaiter().GetResult();
+            DocumentReference docRef = _firestore.Collection(CollectionName).Document(record.Id);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
             if (snapshot.Exists)
             {
-                TEntity usr = snapshot.ConvertTo<TEntity>();
-                usr.Id = snapshot.Id;
-                return usr;
+                TEntity entity = snapshot.ConvertTo<TEntity>();
+                entity.Id = snapshot.Id;
+                return entity;
             }
-            else
-            {
-                return null;
-            }
+            
+            return null;
         }
 
-        public virtual List<TEntity> GetAll()
+        public virtual async Task<List<TEntity>> GetAll()
         {
-            Query query = _firestore.Collection(_collectionName);
-            QuerySnapshot querySnapshot = query.GetSnapshotAsync().GetAwaiter().GetResult();
+            Query query = _firestore.Collection(CollectionName);
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
             List<TEntity> list = new List<TEntity>();
             foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
             {
@@ -75,9 +84,9 @@ namespace ElitTournamentWeb.DAL.Repositories
             return list;
         }
 
-        public virtual List<TEntity> QueryRecords(Query query)
+        public virtual async Task<List<TEntity>> QueryRecords(Query query)
         {
-            QuerySnapshot querySnapshot = query.GetSnapshotAsync().GetAwaiter().GetResult();
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
             List<TEntity> list = new List<TEntity>();
             foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
             {
@@ -93,5 +102,6 @@ namespace ElitTournamentWeb.DAL.Repositories
 
             return list;
         }
+        
     }
 }

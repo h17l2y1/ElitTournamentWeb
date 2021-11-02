@@ -10,6 +10,7 @@ namespace ElitTournamentWeb.DAL.Repositories
     {
         public RoundRepository(FirestoreDb firebase): base(firebase)
         {
+            CollectionName = $"{nameof(Post)}s";
         }
         
         public async Task<IEnumerable<Round>> GetAll(int seasonId)

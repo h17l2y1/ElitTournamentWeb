@@ -6,6 +6,7 @@ namespace ElitTournamentWeb.BLL.Services.Interfaces
 	public interface ILeagueService
 	{
 		Task<GetAllLeaguesResponse> GetAllLeagues();
-		Task Init();
+		Task CreateLeagues();
+		Task CreateLeagues2();
 	}
 }

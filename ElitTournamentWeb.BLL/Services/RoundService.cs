@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using ElitTournamentWeb.BLL.Services.Interfaces;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
+using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels.Round;
 
@@ -22,7 +22,7 @@ namespace ElitTournamentWeb.BLL.Services
 		public async Task Create(CreateRoundRequest requset)
 		{
 			Round round = _mapper.Map<Round>(requset);
-			await _roundRepository.CreateAsync(round);
+			// await _roundRepository.CreateAsync(round);
 		}
 
 		public async Task<GetAllRoundsResponse> GetAll(int seasonId)

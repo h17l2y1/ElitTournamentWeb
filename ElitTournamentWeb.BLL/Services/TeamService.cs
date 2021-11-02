@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using ElitTournamentWeb.BLL.Services.Interfaces;
-using ElitTournamentWeb.DAL.Repositories.Interfaces;
+using ElitTournamentWeb.DAL.Repositories.Interface;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels.Team;
 
@@ -21,23 +20,23 @@ namespace ElitTournamentWeb.BLL.Services
 		
 		public async Task<GetTeamsAllResponse> GetAll()
 		{
-			IEnumerable<Team> teams = await _teamRepository.GetAll();
-			IEnumerable<TeamItem> teamView = _mapper.Map<IEnumerable<TeamItem>>(teams);
-			var view = new GetTeamsAllResponse(teamView);
-
-			return view;
+			// IEnumerable<Team> teams = await _teamRepository.GetAll();
+			// IEnumerable<TeamItem> teamView = _mapper.Map<IEnumerable<TeamItem>>(teams);
+			// var view = new GetTeamsAllResponse(teamView);
+			// return view;
+			return null;
 		}
 		
 		public async Task Create(CreateTeamRequest request)
 		{
 			Team newTeam = _mapper.Map<Team>(request);
-			await _teamRepository.CreateAsync(newTeam);
+			// await _teamRepository.CreateAsync(newTeam);
 		}
 		
 		public async Task Update(UpdateTeamRequest request)
 		{
 			Team team = _mapper.Map<Team>(request);
-			await _teamRepository.Update(team);
+			// await _teamRepository.Update(team);
 		}
 	}
 }

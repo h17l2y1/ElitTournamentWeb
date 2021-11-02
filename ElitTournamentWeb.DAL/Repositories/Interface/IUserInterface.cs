@@ -5,6 +5,6 @@ namespace ElitTournamentWeb.DAL.Repositories.Interface
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<UserOld> FindByLogin(string login);
+        Task<User> FindByLogin(string login);
     }
 }

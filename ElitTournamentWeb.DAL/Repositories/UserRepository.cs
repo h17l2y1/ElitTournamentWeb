@@ -11,7 +11,7 @@ namespace ElitTournamentWeb.DAL.Repositories
         {
         }
         
-        public async Task<UserOld> FindByLogin(string login)
+        public async Task<User> FindByLogin(string login)
         {
             // UserOld userOld = await _dbSet.SingleOrDefaultAsync(x => x.Login == login);
             // return userOld;

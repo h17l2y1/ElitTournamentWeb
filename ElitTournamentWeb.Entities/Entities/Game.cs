@@ -1,19 +1,22 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
+	[FirestoreData]
 	public class Game : BaseEntity
 	{
+		[FirestoreProperty]
 		public int Field { get; set; }
+		[FirestoreProperty]
 		public string TeamHome { get; set; }
+		[FirestoreProperty]
 		public string TeamGuest { get; set; }
+		[FirestoreProperty]
 		public TimeSpan Time { get; set; }
-
-		[ForeignKey("PlaceId")]
+		[FirestoreProperty]
 		public int PlaceId { get; set; }
-
-		[NotMapped]
+		[FirestoreProperty]
 		public virtual Place Place { get; set; }
 	}
 }

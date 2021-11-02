@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
+	[FirestoreData]
 	public class Round : BaseEntity
 	{
+		[FirestoreProperty]
 		public int RoundNumber { get; set; }
+		[FirestoreProperty]
 		public IEnumerable<Place> Places { get; set; }
-		
-		[ForeignKey("SeasonId")]
+		[FirestoreProperty]
 		public int SeasonId { get; set; }
-
-		[NotMapped]
+		[FirestoreProperty]
 		public virtual Season Season { get; set; }
 	}
 }

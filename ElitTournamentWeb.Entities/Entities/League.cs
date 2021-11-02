@@ -1,25 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
+	[FirestoreData]
 	public class League : BaseEntity
 	{
 		public League(string name)
 		{
 			Name = name;
 		}
+
+		public League()
+		{
+		}
 		
-		public League() { }
-		
+		[FirestoreProperty]
 		public string Name { get; set; }
 		
+		[FirestoreProperty]
 		public IEnumerable<Team> Teams { get; set; }
-		
-		[ForeignKey("SeasonId")]
+		[FirestoreProperty]
 		public int SeasonId { get; set; }
-
-		[NotMapped]
+		[FirestoreProperty]
 		public virtual Season Season { get; set; }
 	}
 }

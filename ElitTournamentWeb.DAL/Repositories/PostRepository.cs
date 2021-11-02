@@ -8,6 +8,7 @@ namespace ElitTournamentWeb.DAL.Repositories
     {
         public PostRepository(FirestoreDb firestore): base(firestore)
         {
+            CollectionName = $"{nameof(Post)}s";
         }
     }
 }

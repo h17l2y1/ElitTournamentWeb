@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ElitTournamentWeb.DAL.Repositories.Interface
 {
     public interface IBaseRepository<TEntity>
     {
-        TEntity Get(TEntity record);
+        Task<TEntity> Get(TEntity record);
         
-        List<TEntity> GetAll();
+        Task<List<TEntity>> GetAll();
+
+        Task<TEntity> Add(TEntity record);
+
+        Task Add(List<TEntity> records);
+
+        Task<TEntity> Update(TEntity record);
         
-        TEntity Add(TEntity record);
-        
-        bool Update(TEntity record);
-        
-        bool Delete(TEntity record);
+        Task<string> Delete(TEntity record);
     }
 }

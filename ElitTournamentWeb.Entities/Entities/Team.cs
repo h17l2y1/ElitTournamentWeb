@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using Google.Cloud.Firestore;
 
 namespace ElitTournamentWeb.Entities.Entities
 {
+	[FirestoreData]
 	public class Team : BaseEntity
 	{
 		public Team(string name)
@@ -10,34 +11,35 @@ namespace ElitTournamentWeb.Entities.Entities
 			Name = name;
 		}
 
-		public Team() { }
+		public Team()
+		{
+		}
 		
+		[FirestoreProperty]
 		public int? Position { get; set; }
-
+		[FirestoreProperty]
 		public string Icon { get; set; }
-		
+		[FirestoreProperty]
 		public string Name { get; set; }
-
+		[FirestoreProperty]
 		public int? Played { get; set; }
-
+		[FirestoreProperty]
 		public int? Won { get; set; }
-
+		[FirestoreProperty]
 		public int? Drawn { get; set; }
-
+		[FirestoreProperty]
 		public int? Lost { get; set; }
-
+		[FirestoreProperty]
 		public int? Goals { get; set; }
-
+		[FirestoreProperty]
 		public int? GoalDifference { get; set; }
-
+		[FirestoreProperty]
 		public int? Points { get; set; }
-
+		[FirestoreProperty]
 		public IEnumerable<Player> Players { get; set; }
-		
-		[ForeignKey("LeagueId")]
+		[FirestoreProperty]
 		public int? LeagueId { get; set; }
-
-		[NotMapped]
-		public virtual League League { get; set; }
+		[FirestoreProperty]
+		public League League { get; set; }
 	}
 }
