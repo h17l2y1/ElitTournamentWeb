@@ -18,8 +18,8 @@ namespace ElitTournamentWeb.Entities.Entities
 		[FirestoreProperty]
 		public string Name { get; set; }
 		
-		[FirestoreProperty]
-		public IEnumerable<Team> Teams { get; set; }
+		// [FirestoreProperty]
+		// public IEnumerable<Team> Teams { get; set; }
 		[FirestoreProperty]
 		public int SeasonId { get; set; }
 		[FirestoreProperty]

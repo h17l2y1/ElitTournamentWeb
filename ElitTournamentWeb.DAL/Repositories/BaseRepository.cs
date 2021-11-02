@@ -69,15 +69,12 @@ namespace ElitTournamentWeb.DAL.Repositories
             Query query = _firestore.Collection(CollectionName);
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
             List<TEntity> list = new List<TEntity>();
-            foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+            foreach (DocumentSnapshot snapshot in querySnapshot.Documents)
             {
-                if (documentSnapshot.Exists)
+                if (snapshot.Exists)
                 {
-                    Dictionary<string, object> city = documentSnapshot.ToDictionary();
-                    string json = JsonConvert.SerializeObject(city);
-                    TEntity newItem = JsonConvert.DeserializeObject<TEntity>(json);
-                    newItem.Id = documentSnapshot.Id;
-                    list.Add(newItem);
+                    TEntity entity = snapshot.ConvertTo<TEntity>();
+                    list.Add(entity);
                 }
             }
 

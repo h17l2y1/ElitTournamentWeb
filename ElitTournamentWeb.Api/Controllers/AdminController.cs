@@ -14,18 +14,11 @@ namespace ElitTournamentWeb.Api.Controllers
         {
             _leagueService = leagueService;
         }
-			
+
         [HttpPost]
-        public async Task<IActionResult> CreateLeagues2()
+        public async Task<IActionResult> Init()
         {
-            await _leagueService.CreateLeagues2();
-            return Ok();
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> CreateLeagues()
-        {
-            await _leagueService.CreateLeagues();
+            await _leagueService.Init();
             return Ok();
         }
         

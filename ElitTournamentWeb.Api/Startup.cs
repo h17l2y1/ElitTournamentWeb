@@ -25,7 +25,7 @@ namespace ElitTournamentWeb.Api
 			services.AddCors(options =>
 			{
 				options.AddPolicy("Angular",
-					b => b.WithOrigins("http://localhost:5001")
+					b => b.WithOrigins("http://localhost:4200")
 						.AllowAnyHeader()
 						.AllowAnyMethod());
 			});

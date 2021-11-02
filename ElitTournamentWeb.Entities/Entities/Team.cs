@@ -6,9 +6,10 @@ namespace ElitTournamentWeb.Entities.Entities
 	[FirestoreData]
 	public class Team : BaseEntity
 	{
-		public Team(string name)
+		public Team(string name, string leagueId)
 		{
 			Name = name;
+			LeagueId = leagueId;
 		}
 
 		public Team()
@@ -38,7 +39,7 @@ namespace ElitTournamentWeb.Entities.Entities
 		[FirestoreProperty]
 		public IEnumerable<Player> Players { get; set; }
 		[FirestoreProperty]
-		public int? LeagueId { get; set; }
+		public string LeagueId { get; set; }
 		[FirestoreProperty]
 		public League League { get; set; }
 	}
