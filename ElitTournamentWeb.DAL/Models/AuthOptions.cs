@@ -1,4 +1,4 @@
-﻿namespace ElitTournamentWeb.DAL.Config
+﻿namespace ElitTournamentWeb.DAL.Models
 {
 	public class AuthOptions
 	{

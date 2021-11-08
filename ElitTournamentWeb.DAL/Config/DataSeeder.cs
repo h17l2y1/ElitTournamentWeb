@@ -4,18 +4,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.Entities.Types;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ElitTournamentWeb.DAL.Config
 {
-	public static class Initializer
+	public static class DataSeeder
 	{
-		public static void SeedData(IServiceCollection services)
+		public static void Seed(IServiceCollection services)
+		{
+			GetDbContext(services);
+			SeedData(services);
+		}
+		
+		private static void GetDbContext(IServiceCollection services)
+		{
+			ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+			using (var context = serviceProvider.GetRequiredService<ApplicationContext>())
+			{
+				if (((RelationalDatabaseCreator) context.Database.GetService<IDatabaseCreator>()).Exists())
+				{
+					SeedData(services);
+				}
+			}
+		}
+		
+		private static void SeedData(IServiceCollection services)
 		{
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
-			SeedUsers(serviceProvider).Wait();
-			SeedPosts(serviceProvider).Wait();
-			// SeedLeagues(serviceProvider).Wait();
+			// SeedUsers(serviceProvider).Wait();
+			// SeedPosts(serviceProvider).Wait();
+			SeedLeagues(serviceProvider).Wait();
 			SeedTeams(serviceProvider).Wait();
 		}
 

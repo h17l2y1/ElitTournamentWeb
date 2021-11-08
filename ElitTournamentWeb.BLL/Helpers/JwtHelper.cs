@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using ElitTournamentWeb.DAL.Config;
+using ElitTournamentWeb.DAL.Models;
 using ElitTournamentWeb.Entities.Entities;
 using ElitTournamentWeb.ViewModels.Auth;
 

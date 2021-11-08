@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using ElitTournamentWeb.DAL.Config;
+﻿using ElitTournamentWeb.DAL.Config;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

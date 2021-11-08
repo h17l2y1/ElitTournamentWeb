@@ -14,12 +14,13 @@ namespace ElitTournamentWeb.Entities.Entities
 		
 		public string Name { get; set; }
 		
-		public IEnumerable<Team> Teams { get; set; }
 		
 		[ForeignKey("SeasonId")]
-		public int SeasonId { get; set; }
+		public int? SeasonId { get; set; }
 
 		[NotMapped]
 		public virtual Season Season { get; set; }
+		
+		public IEnumerable<Team> Teams { get; set; }
 	}
 }
