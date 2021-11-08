@@ -7,7 +7,7 @@ namespace ElitTournamentWeb.DAL.Config
 	{
 		public static void InjectDataAccessDependency(this IServiceCollection services, IConfiguration configuration)
 		{
-			Dependencies.Add(services);
+			DatabaseDependencies.Add(services);
 			DbConnection.Add(services, configuration);
 			DataSeeder.Seed(services);
 		}

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ElitTournamentWeb.DAL.Config
 {
-    public static class Dependencies
+    public static class DatabaseDependencies
     {
         public static void Add(IServiceCollection services)
         {

@@ -34,8 +34,8 @@ namespace ElitTournamentWeb.DAL.Config
 		private static void SeedData(IServiceCollection services)
 		{
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
-			// SeedUsers(serviceProvider).Wait();
-			// SeedPosts(serviceProvider).Wait();
+			SeedUsers(serviceProvider).Wait();
+			SeedPosts(serviceProvider).Wait();
 			SeedLeagues(serviceProvider).Wait();
 			SeedTeams(serviceProvider).Wait();
 		}

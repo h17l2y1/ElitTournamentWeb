@@ -1,4 +1,7 @@
-﻿using ElitTournamentWeb.BLL.Helpers.Interfaces;
+﻿using ElitTournamentWeb.DAL.Models;
+using ElitTournamentWeb.Entities.Entities;
+using ElitTournamentWeb.ViewModels.Auth;
+using ElitTournamentWeb.BLL.Helpers.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -6,10 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using ElitTournamentWeb.DAL.Config;
-using ElitTournamentWeb.DAL.Models;
-using ElitTournamentWeb.Entities.Entities;
-using ElitTournamentWeb.ViewModels.Auth;
+
 
 namespace ElitTournamentWeb.BLL.Helpers
 {
@@ -24,8 +24,8 @@ namespace ElitTournamentWeb.BLL.Helpers
 		
 		public JwtView CreateToken(User user)
 		{
-			ClaimsIdentity identity = GetIdentity(user);
-			JwtSecurityToken jwt = GetToken(identity);
+			ClaimsIdentity claims = GetClaimsIdentity(user);
+			JwtSecurityToken jwt = GetToken(claims);
 			string stringToken = new JwtSecurityTokenHandler().WriteToken(jwt);
 			JwtView result = new JwtView() {AccessToken = stringToken};
 			return result;
@@ -44,7 +44,7 @@ namespace ElitTournamentWeb.BLL.Helpers
 			return jwt;
 		}
 
-		private ClaimsIdentity GetIdentity(User user)
+		private ClaimsIdentity GetClaimsIdentity(User user)
 		{
 			var claimsList = new List<Claim>
 			{

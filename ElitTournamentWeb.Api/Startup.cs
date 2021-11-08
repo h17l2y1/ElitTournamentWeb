@@ -24,8 +24,7 @@ namespace ElitTournamentWeb.Api
 
 			services.InjectBusinessLogicDependency(Configuration);
 
-			// CorsExtension.Add(services);
-			// services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			CorsExtension.Add(services);
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -41,7 +40,7 @@ namespace ElitTournamentWeb.Api
 
 			app.UseAuthorization();
 			
-			app.UseCors("AllowAllPolicy");
+			app.UseCors("Angular");
 
 			app.UseMiddleware<ErrorHandlingMiddleware>();
 
